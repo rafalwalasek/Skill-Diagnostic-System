@@ -1,12 +1,12 @@
 package com.rafal.skilldiagnosticsystem;
 
 public class Question {
-    private String question;
-    private String answerA;
-    private String answerB;
-    private String answerC;
-    private String answerD;
-    private String correctAnswer;
+    private final String question;
+    private final String answerA;
+    private final String answerB;
+    private final String answerC;
+    private final String answerD;
+    private final String correctAnswer;
 
     public Question(String question,
                     String answerA,

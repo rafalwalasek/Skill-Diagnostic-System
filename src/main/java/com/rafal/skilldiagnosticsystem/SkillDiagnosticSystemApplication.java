@@ -13,8 +13,6 @@ public class SkillDiagnosticSystemApplication {
 		//SpringApplication.run(SkillDiagnosticSystemApplication.class, args);
 
 		Scanner sc = new Scanner(System.in);
-		String odp;
-		int score = 0;
 
 		Question q1 = new Question("Co oznacza private w Javie?",
 				"Pole jest dostępne wszędzie",
@@ -42,23 +40,48 @@ public class SkillDiagnosticSystemApplication {
 
 		int total = questions.size();
 
-		int numberOfQuestion = 1;
-		for (Question question : questions) {
-			System.out.print(numberOfQuestion++ + ". ");
-			question.showQuestion();
+		List<Double> results = new ArrayList<>();
 
-			System.out.print("Odp: ");
-			odp = sc.nextLine().trim().toLowerCase();
-			if (question.isCorrect(odp)) {
-				System.out.println("Dobrze :)");
-				score++;
-			} else {
-				System.out.println("Źle, odpowiedź to: " + question.getCorrectAnswer());
+		boolean isRunning = true;
+		while (isRunning) {
+			Menu.showMenu();
+
+			int userChoice = sc.nextInt();
+			sc.nextLine();
+
+			switch (userChoice) {
+				case 0 -> {
+					System.out.println("Koniec!");
+					isRunning = false;
+				}
+				case 1 -> {
+					String odp;
+					int score = 0;
+
+					int numberOfQuestion = 1;
+					for (Question question : questions) {
+						System.out.print(numberOfQuestion++ + ". ");
+						question.showQuestion();
+
+						System.out.print("Odp: ");
+						odp = sc.nextLine().trim().toLowerCase();
+						if (question.isCorrect(odp)) {
+							score++;
+						}
+					}
+
+					double percent = (double) score / total * 100;
+					results.add(percent);
+				}
+				case 2 -> {
+					int count = 1;
+					for (Double result : results) {
+						System.out.println(count++ + ": " + String.format("%.0f", result) + "%");
+					}
+				}
+				default -> System.out.println("Brak opcji, wybierz jeszcze raz :)");
 			}
 		}
-
-		double percent = (double) score / total * 100;
-		System.out.println("Wynik: " + score + "/" + total + " (" + String.format("%.0f", percent) + "%)");
 
 		sc.close();
 	}
