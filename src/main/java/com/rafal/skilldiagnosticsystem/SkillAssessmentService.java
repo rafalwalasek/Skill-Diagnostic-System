@@ -4,30 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SkillAssessmentService {
-    private final int total = listQuestions().size();
+    private final List<Question> questions = new ArrayList<>();
 
-    private final List<Double> results = new ArrayList<>();
-
-    public void runQuiz(String userAnswer) {
+    public double checkPerformance(List<String> answersUser, List<Question> questions) {
         int score = 0;
-        int numberOfQuestion = 1;
-
-        for (Question question : listQuestions()) {
-            System.out.print(numberOfQuestion++ + ". ");
-            question.showQuestion();
-
-            System.out.print("Answer: ");
-            if (question.isCorrect(userAnswer)) {
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).isCorrect(answersUser.get(i))) {
                 score++;
             }
         }
 
-        double percent = (double) score / total * 100;
-        results.add(percent);
+        return (double) score / questions.size() * 100;
     }
-    private List<Question> listQuestions() {
-        List<Question> questions = new ArrayList<>();
-
+    public List<Question> listQuestions() {
         Question q1 = new Question("Co oznacza private w Javie?",
                 "Pole jest dostępne wszędzie",
                 "Pole jest dostępne tylko w tej samej klasie",

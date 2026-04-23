@@ -12,7 +12,6 @@ public class Menu {
                 |   2 -> wyniki    |
                 |   3 -> zapis     |
                 ====================
-                ->
                 """
         );
     }
