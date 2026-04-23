@@ -22,10 +22,6 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
     public void showQuestion() {
         System.out.println(question + "\n" +
                 "A) " + answerA + "\n" +

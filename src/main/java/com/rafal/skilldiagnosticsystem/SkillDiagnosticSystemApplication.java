@@ -1,7 +1,7 @@
 package com.rafal.skilldiagnosticsystem;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ public class SkillDiagnosticSystemApplication {
 		//SpringApplication.run(SkillDiagnosticSystemApplication.class, args);
 
 		Scanner sc = new Scanner(System.in);
+		FileManager fileManager = new FileManager("wyniki.txt");
 
 		Question q1 = new Question("Co oznacza private w Javie?",
 				"Pole jest dostępne wszędzie",
@@ -55,6 +56,10 @@ public class SkillDiagnosticSystemApplication {
 					isRunning = false;
 				}
 				case 1 -> {
+					List<String> userAnswers = new ArrayList<>();
+
+
+
 					String odp;
 					int score = 0;
 
@@ -74,11 +79,27 @@ public class SkillDiagnosticSystemApplication {
 					results.add(percent);
 				}
 				case 2 -> {
+					double max = 0.0;
+					double sum = 0.0;
+
 					int count = 1;
 					for (Double result : results) {
 						System.out.println(count++ + ": " + String.format("%.0f", result) + "%");
+						if (result > max) {
+							max = result;
+						}
+                        sum = sum + result;
 					}
+
+					System.out.println("Średnia: " + String.format("%.2f", sum / results.size()) + "%");
+					System.out.println("Najlepszy: " + String.format("%.2f", max) + "%");
+					if (results.getFirst() > results.getLast()) {
+						System.out.println("Trend: malejacy");
+					} else if (results.getFirst() < results.getLast()) {
+						System.out.println("Trend: rosnacy");
+					} else System.out.println("Trend: staly");
 				}
+				case 3 -> fileManager.writeToFile(results);
 				default -> System.out.println("Brak opcji, wybierz jeszcze raz :)");
 			}
 		}

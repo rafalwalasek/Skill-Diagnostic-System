@@ -10,6 +10,7 @@ public class Menu {
                 |   0 -> wyjscie   |
                 |   1 -> start     |
                 |   2 -> wyniki    |
+                |   3 -> zapis     |
                 ====================
                 ->
                 """
