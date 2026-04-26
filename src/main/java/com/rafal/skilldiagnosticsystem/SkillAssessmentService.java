@@ -16,6 +16,23 @@ public class SkillAssessmentService {
 
         return (double) score / questions.size() * 100;
     }
+    public List<Double> showPerformance(List<Double> results) {
+        List<Double> performances = new ArrayList<>();
+
+        double sum = 0.0;
+        double max = 0.0;
+        for (Double result : results) {
+            sum = sum + result;
+            if (result > max) {
+                max = result;
+            }
+        }
+
+        performances.add(sum / results.size());
+        performances.add(max);
+
+        return performances;
+    }
     public List<Question> listQuestions() {
         Question q1 = new Question("Co oznacza private w Javie?",
                 "Pole jest dostępne wszędzie",

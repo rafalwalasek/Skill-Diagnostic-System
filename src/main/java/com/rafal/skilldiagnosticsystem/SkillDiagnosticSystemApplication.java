@@ -45,6 +45,8 @@ public class SkillDiagnosticSystemApplication {
 					results.add(skillAssessmentService.checkPerformance(answersUser, questions));
 				}
 				case 2 -> {
+					skillAssessmentService.showPerformance(results);
+					System.out.println("Wyniki:");
 
 				}
 				default -> System.out.println("Brak opcji, wybierz jeszcze raz :)");
