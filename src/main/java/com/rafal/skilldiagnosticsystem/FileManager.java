@@ -16,23 +16,21 @@ public class FileManager {
     }
 
     public void writeToFile(List<Double> results) {
-        //createFile();
-
         try (FileWriter writer = new FileWriter(fileName, true)) {
-            for (Double result : results) {
-                writer.write(String.format("%.0f", result) + "\n");
+            if (!results.isEmpty()) {
+                writer.write(String.format("%.0f", results.getLast()) + "\n");
             }
         } catch (IOException e) {
             System.out.println("Nie udało się utworzyć pliku.");
             e.printStackTrace();
         }
     }
-    public List<Double> readWithFile(String fileName) {
+    public List<Double> readFromFile() {
         File file = new File(fileName);
         List<Double> results = new ArrayList<>();
 
         try (Scanner reader = new Scanner(file)) {
-            while (reader.hasNextLine()) {
+            while (reader.hasNextDouble()) {
                 results.add(reader.nextDouble());
             }
         } catch (FileNotFoundException e) {
@@ -41,19 +39,5 @@ public class FileManager {
         }
 
         return results;
-    }
-    private void createFile() {
-        try {
-            File file = new File(fileName);
-
-            if (file.createNewFile()) {
-                System.out.println("Utworzono plik: " + fileName);
-            } else {
-                System.out.println("Plik " + fileName + ", już istnieje.");
-            }
-        } catch (IOException e) {
-            System.out.println("Nie udało się utworzyć pliku.");
-            e.printStackTrace();
-        }
     }
 }

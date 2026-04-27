@@ -16,7 +16,8 @@ public class SkillDiagnosticSystemApplication {
 		SkillAssessmentService skillAssessmentService = new SkillAssessmentService();
 		FileManager fileManager = new FileManager("wyniki.txt");
 
-		List<Double> results = new ArrayList<>();
+		List<Question> questions = skillAssessmentService.listQuestions();
+		List<Double> results = fileManager.readFromFile();
 
 		boolean isRunning = true;
 		while (isRunning) {
@@ -31,7 +32,6 @@ public class SkillDiagnosticSystemApplication {
 					isRunning = false;
 				}
 				case 1 -> {
-					List<Question> questions = skillAssessmentService.listQuestions();
 					List<String> answersUser = new ArrayList<>();
 
 					int numberOfQuestion = 1;
@@ -46,12 +46,19 @@ public class SkillDiagnosticSystemApplication {
 					results.add(skillAssessmentService.checkPerformance(answersUser, questions));
 				}
 				case 2 -> {
-					System.out.println("Wyniki:");
-					for (String performance : skillAssessmentService.showPerformance(results)) {
-						System.out.println(performance);
+					if (results.isEmpty()) {
+						System.out.println("Brak danych.");
+					} else {
+						List<String> performance;
+						performance = skillAssessmentService.showPerformance(results);
+
+						System.out.println("Wyniki:");
+						System.out.println("Średnia: " + performance.get(0));
+						System.out.println("Najwyższa: " + performance.get(1));
+						System.out.println("Trend: " + performance.get(2));
 					}
 				}
-				case 3 -> ;
+				case 3 -> fileManager.writeToFile(results);
 				default -> System.out.println("Brak opcji, wybierz jeszcze raz :)");
 			}
 		}
