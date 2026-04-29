@@ -1,5 +1,7 @@
 package com.rafal.skilldiagnosticsystem;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class FileManager {
     private final String fileName;
 
