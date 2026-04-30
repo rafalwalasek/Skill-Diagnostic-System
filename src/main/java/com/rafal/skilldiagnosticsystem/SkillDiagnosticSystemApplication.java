@@ -10,7 +10,6 @@ public class SkillDiagnosticSystemApplication {
 	}
 }
 
-
 //		Scanner sc = new Scanner(System.in);
 //		SkillAssessmentService skillAssessmentService = new SkillAssessmentService();
 //		FileManager fileManager = new FileManager("wyniki.txt");

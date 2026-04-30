@@ -1,11 +1,10 @@
 package com.rafal.skilldiagnosticsystem.controller;
 
+import com.rafal.skilldiagnosticsystem.dto.AnswerRequest;
 import com.rafal.skilldiagnosticsystem.model.Question;
+import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import com.rafal.skilldiagnosticsystem.service.SkillAssessmentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,17 +12,21 @@ import java.util.List;
 @RequestMapping("/quiz")
 public class SkillController {
     private final SkillAssessmentService skillAssessmentService;
+    private final QuestionRepository questionRepository;
 
-    public SkillController(SkillAssessmentService skillAssessmentService) {
+    public SkillController(SkillAssessmentService skillAssessmentService, QuestionRepository questionRepository) {
         this.skillAssessmentService = skillAssessmentService;
+        this.questionRepository = questionRepository;
     }
 
     @GetMapping("/questions")
     public List<Question> getAllQuestions() {
-        return skillAssessmentService.listQuestions();
+        return questionRepository.findAll();
     }
     @PostMapping("/submit")
-    public double submitAnswers() {
-        return skillAssessmentService.checkPerformance(answersUser, questions);
+    public double submitAnswers(@RequestBody AnswerRequest answerRequest) {
+        List<Question> questions = questionRepository.findAll();
+
+        return skillAssessmentService.checkPerformance(answerRequest.getAnswers(), questions);
     }
 }

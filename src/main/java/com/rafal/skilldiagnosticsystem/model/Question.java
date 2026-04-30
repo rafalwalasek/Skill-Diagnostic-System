@@ -1,8 +1,6 @@
 package com.rafal.skilldiagnosticsystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Question {
@@ -16,6 +14,8 @@ public class Question {
     private String answerC;
     private String answerD;
     private String correctAnswer;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Question() {}
@@ -85,18 +85,7 @@ public class Question {
         this.category = category;
     }
 
-    //    public void showQuestion() {
-//        System.out.println(question + "\n" +
-//                "A) " + answerA + "\n" +
-//                "B) " + answerB + "\n" +
-//                "C) " + answerC + "\n" +
-//                "D) " + answerD);
-//    }
     public boolean isCorrect(String odp) {
-        if (correctAnswer.equals(odp)) {
-            return true;
-        } else {
-            return false;
-        }
+        return correctAnswer.equals(odp);
     }
 }
