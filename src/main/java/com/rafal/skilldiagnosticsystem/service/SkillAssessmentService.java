@@ -5,7 +5,6 @@ import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class SkillAssessmentService {
 
         return (double) score / questions.size() * 100;
     }
+
     public Map<Category, Integer> showCategoryResult(List<String> answersUser, List<Question> questions) {
         Map<Category, Integer> categoryResults = new HashMap<>();
 
@@ -51,6 +51,7 @@ public class SkillAssessmentService {
 
         return categoryResults;
     }
+}
 //    public List<Question> listQuestions() {
 //        List<Question> questions = new ArrayList<>();
 //
@@ -82,7 +83,7 @@ public class SkillAssessmentService {
 //
 //        return questions;
 //    }
-}
+
 
 //    public List<String> showPerformance(List<Double> results) {
 //        List<String> performances = new ArrayList<>();
