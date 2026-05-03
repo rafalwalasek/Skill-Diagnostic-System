@@ -8,7 +8,7 @@ public class Question {
     @GeneratedValue
     private Long id;
 
-    private String question;
+    private String content;
     private String answerA;
     private String answerB;
     private String answerC;
@@ -19,14 +19,14 @@ public class Question {
     private Category category;
 
     public Question() {}
-    public Question(String question,
+    public Question(String content,
                     String answerA,
                     String answerB,
                     String answerC,
                     String answerD,
                     String correctAnswer,
                     Category category) {
-        this.question = question;
+        this.content = content;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
@@ -39,7 +39,7 @@ public class Question {
         return id;
     }
     public String getQuestion() {
-        return question;
+        return content;
     }
     public String getAnswerA() {
         return answerA;
@@ -63,8 +63,8 @@ public class Question {
     public void setId(Long id) {
         this.id = id;
     }
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuestion(String content) {
+        this.content = content;
     }
     public void setAnswerA(String answerA) {
         this.answerA = answerA;
