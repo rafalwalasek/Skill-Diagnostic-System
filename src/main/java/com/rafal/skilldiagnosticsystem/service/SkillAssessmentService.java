@@ -1,5 +1,7 @@
 package com.rafal.skilldiagnosticsystem.service;
 
+import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
+import com.rafal.skilldiagnosticsystem.dto.UserAnswer;
 import com.rafal.skilldiagnosticsystem.model.Category;
 import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
@@ -21,10 +23,12 @@ public class SkillAssessmentService {
         return questionRepository.findAll();
     }
 
-    public double checkPerformance(List<String> answersUser, List<Question> questions) {
+    public double checkPerformance(QuizSubmissionRequest quizSubmissionRequests, List<Question> questions) {
         int score = 0;
-        for (int i = 0; i < questions.size(); i++) {
-            if (questions.get(i).isCorrect(answersUser.get(i))) {
+        for (UserAnswer userAnswer : quizSubmissionRequests.getUserAnswerList()) {
+            Long questionId = userAnswer.getQuestionId();
+            Question question = questionRepository.findById(questionId).orElseThrow();
+            if (question.isCorrect(userAnswer.getAnswer())) {
                 score++;
             }
         }

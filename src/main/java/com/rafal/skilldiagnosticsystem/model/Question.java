@@ -1,11 +1,15 @@
 package com.rafal.skilldiagnosticsystem.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Question {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String content;
@@ -16,74 +20,9 @@ public class Question {
     private String correctAnswer;
 
     @Enumerated(EnumType.STRING)
+    private DifficultyLevel difficultyLevel;
+    @Enumerated(EnumType.STRING)
     private Category category;
-
-    public Question() {}
-    public Question(String content,
-                    String answerA,
-                    String answerB,
-                    String answerC,
-                    String answerD,
-                    String correctAnswer,
-                    Category category) {
-        this.content = content;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.correctAnswer = correctAnswer;
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public String getQuestion() {
-        return content;
-    }
-    public String getAnswerA() {
-        return answerA;
-    }
-    public String getAnswerB() {
-        return answerB;
-    }
-    public String getAnswerC() {
-        return answerC;
-    }
-    public String getAnswerD() {
-        return answerD;
-    }
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public void setQuestion(String content) {
-        this.content = content;
-    }
-    public void setAnswerA(String answerA) {
-        this.answerA = answerA;
-    }
-    public void setAnswerB(String answerB) {
-        this.answerB = answerB;
-    }
-    public void setAnswerC(String answerC) {
-        this.answerC = answerC;
-    }
-    public void setAnswerD(String answerD) {
-        this.answerD = answerD;
-    }
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public boolean isCorrect(String odp) {
         return correctAnswer.equals(odp);

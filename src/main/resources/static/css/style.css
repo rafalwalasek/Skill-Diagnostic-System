@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f8ff;
+    color: #0f172a;
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+    /* HEADER */
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1d4ed8;
+    }/* END HEADER */
+    /* CARDS */
+    .card {
+        background: white;
+        border: 1px solid #dbeafe;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 10px rgba(29, 78, 216, 0.08);
+    }/* END CARDS */
+        /* TOPIC */
+        .topic {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            background: #eff6ff;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+            .topic:hover {
+                background: #dbeafe;
+            }/* END TOPIC */
+            /* SUBTOPIC */
+            .subtopic {
+                margin-left: 20px;
+                margin-top: 5px;
+                padding: 6px;
+                border-radius: 6px;
+                cursor: pointer;
+                background: #f8fafc;
+                border-left: 3px solid transparent;
+            }
+                .subtopic:hover {
+                    background: #e0f2fe;
+                    border-left: 3px solid #3b82f6;
+                }
+                .subtopic.active {
+                    background: #dbeafe;
+                    border-left: 3px solid #1d4ed8;
+                }/* END SUBTOPIC */
+
+/* DETAILS */
+#details {
+    margin-bottom: 15px;
+}
+
+.stat {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+/* BUTTON */
+button {
+    background: #1d4ed8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+button:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+}
+
+/* subtitle */
+.subtitle {
+    color: #64748b;
+    margin-top: -10px;
+    font-size: 14px;
+}
+
+/* section spacing feel */
+hr {
+    opacity: 0.5;
+}
+
+/* muted text */
+.muted {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* progress / recent items */
+.item {
+    padding: 8px;
+    border-radius: 8px;
+    background: #f0f9ff;
+    margin-bottom: 6px;
+    border: 1px solid #bae6fd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item strong {
+    color: #1d4ed8;
+}
