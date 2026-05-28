@@ -1,5 +1,6 @@
 package com.rafal.skilldiagnosticsystem.dto;
 
+import com.rafal.skilldiagnosticsystem.model.Category;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ public class QuestionRequestDto {
     private String answerB;
     private String answerC;
     private String answerD;
+    private String correctAnswer;
     private DifficultyLevel difficulty;
-    private Long categoryId;
+    private Category category;
 }

@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+//@CrossOrigin(origins = "http://localhost:5500")
 @RequestMapping("/quiz")
+@RestController
 public class SkillController {
     private final TopicService topicService;
     private final QuestionService questionService;

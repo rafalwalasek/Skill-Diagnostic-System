@@ -122,3 +122,100 @@ hr {
 .item strong {
     color: #1d4ed8;
 }
+/* ------------------------------------- */
+
+    /* ADD QUESTION */
+    .add-question-card {
+        max-width: 900px;
+    }
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 18px;
+            }
+                .form-group label {
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #0f172a;
+                }
+                .form-group input,
+                .form-group textarea,
+                .form-group select {
+                    padding: 12px;
+                    border: 1px solid #cbd5e1;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    transition: 0.2s ease;
+                    background: white;
+                }
+                    .form-group input:focus,
+                    .form-group textarea:focus,
+                    .form-group select:focus {
+                        border-color: #2563eb;
+                        outline: none;
+                        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+                    }
+                textarea {
+                    resize: vertical;
+                    min-height: 100px;
+                }
+            .form-group-correct-answer {
+                display: flex;
+                flex-direction: column;
+                margin: 16px 0 30px 0;
+                width: 100%;
+            }
+                .form-group-correct-answer label {
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #0f172a;
+                }
+                .form-group-correct-answer select {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #cbd5e1;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    background-color: white;
+                    cursor: pointer;
+                    transition: 0.2s ease;
+                    appearance: none;
+                }
+                    .form-group-correct-answer select:focus {
+                        outline: none;
+                        border-color: #2563eb;
+                        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+                    }
+                        .form-group-correct-answer select:hover {
+                            border-color: #94a3b8;
+                        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s ease;
+            margin-top: 10px;
+        }
+            .submit-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+            }
+    /* END ADD QUESTION */

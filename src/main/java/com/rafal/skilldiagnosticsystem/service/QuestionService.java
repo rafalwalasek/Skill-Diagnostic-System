@@ -4,19 +4,15 @@ import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
 import com.rafal.skilldiagnosticsystem.model.Category;
 import com.rafal.skilldiagnosticsystem.model.Question;
-import com.rafal.skilldiagnosticsystem.repository.CategoryRepository;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    private final CategoryRepository categoryRepository;
 
-    public QuestionService(QuestionRepository questionRepository,
-                           CategoryRepository categoryRepository) {
+    public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     public QuestionResponseDto addQuestionToDB(QuestionRequestDto questionRequestDto) {
@@ -26,15 +22,25 @@ public class QuestionService {
         question.setAnswerB(questionRequestDto.getAnswerB());
         question.setAnswerC(questionRequestDto.getAnswerC());
         question.setAnswerD(questionRequestDto.getAnswerD());
+        question.setCorrectAnswer(questionRequestDto.getCorrectAnswer());
         question.setDifficultyLevel(questionRequestDto.getDifficulty());
-
-        Category category = categoryRepository.findById(
-                questionRequestDto.getCategoryId()
-        ).orElseThrow(() -> new RuntimeException("Category not found"));
-        question.setCategory(category);
+        question.setCategory(questionRequestDto.getCategory());
 
         Question saved = questionRepository.save(question);
 
-        return que.save(saved);
+        return mapToDto(saved);
+    }
+    private QuestionResponseDto mapToDto(Question q) {
+        QuestionResponseDto questionResponseDto = new QuestionResponseDto();
+        questionResponseDto.setContent(q.getContent());
+        questionResponseDto.setAnswerA(q.getAnswerA());
+        questionResponseDto.setAnswerB(q.getAnswerB());
+        questionResponseDto.setAnswerC(q.getAnswerC());
+        questionResponseDto.setAnswerD(q.getAnswerD());
+        questionResponseDto.setCorrectAnswer(q.getCorrectAnswer());
+        questionResponseDto.setDifficulty(q.getDifficultyLevel());
+        questionResponseDto.setCategory(q.getCategory());
+
+        return questionResponseDto;
     }
 }
