@@ -2,7 +2,6 @@ package com.rafal.skilldiagnosticsystem.service;
 
 import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
-import com.rafal.skilldiagnosticsystem.model.Category;
 import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import org.springframework.stereotype.Service;

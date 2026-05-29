@@ -14,40 +14,38 @@
             <div class="subtitle">Track and improve your skills</div>
         </div>
 
-        <!-- 1. PROGRESS -->
+        <!-- 1. PROGRESS --
         <div class="card">
             <h2>📊 Your Progress</h2>
             <div id="progress">
                 <div class="muted">Loading progress...</div>
             </div>
-        </div>
+        </div> -->
 
         <!-- MAIN INTERACTION -->
         <div class="card">
-            <h2>🎯 Topics</h2>
-            <div id="tree"></div>
-
-            <hr style="margin: 15px 0; border: 1px solid #e0f2fe;">
-
-            <h2>Details</h2>
-            <div id="details">
-                Wybierz podtemat
-            </div>
-
+            <section>
+                <h2>🎯 Topics</h2>
+                <div id="tree"></div>
+            </section>
+            <hr>
+            <section id="subtopicsSection"></section>
+            <section id="detailsSection"></section>
             <button id="trainBtn" disabled>
                 Podszkolić ten temat
             </button>
-        </div><!-- END MAIN INTERACTION -->
+        </div>
+        <!-- END MAIN INTERACTION -->
 
-        <!-- 3. RECENT RESULTS -->
+        <!-- 3. RECENT RESULTS --
         <div class="card">
             <h2>📈 Recent Results</h2>
             <div id="recent">
                 <div class="muted">Loading recent results...</div>
             </div>
-        </div>
+        </div> -->
 
-        <!-- ADD QUESTION -->
+        <!-- ADD QUESTION --
         <div class="card add-question-card">
             <h2>➕ Add Question</h2>
             <form id="questionForm">
@@ -97,8 +95,8 @@
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select id="category">
-                            <option value="SYNTAX">Syntax</option>
-                            <option value="OOP">OOP</option>
+                            <option value="JAVA">Java</option>
+                            <option value="SPRING">Spring</option>
                         </select>
                     </div>
                 </div>

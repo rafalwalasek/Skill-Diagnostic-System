@@ -17,15 +17,117 @@ body {
     }/* END HEADER */
     /* CARDS */
     .card {
-        background: white;
-        border: 1px solid #dbeafe;
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 10px rgba(29, 78, 216, 0.08);
-    }/* END CARDS */
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+        hr {
+            border: none;
+            border-top: 2px solid #e2e0f0;
+            margin: 15px 0;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+            h2 {
+                margin-bottom: 10px;
+                font-size: 18px;
+                color: #0f172a;
+            }
+            #tree {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+                .topic-card {
+                    background: #e0f2fe;
+                    border: 1px solid #bae6fd;
+                    border-radius: 12px;
+                    margin-top: 10px;
+                    padding: 20px 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: 0.2s;
+                    font-weight: 500;
+                    color: #0c4a6e;
+                }
+                    .topic-card:hover {
+                        background: #bae6fd;
+                        transform: translateY(-2px);
+                    }
+            .subtopics-row {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin: 0 24px;
+            }
+                .subtopic-row-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px;
+                    background: #f1f5f9;
+                    border-radius: 10px;
+                }
+                    .subtopic-name {
+                        font-weight: 600;
+                        min-width: 120px;
+                    }
+                .difficulty {
+                    display: flex;
+                    gap: 8px;
+                }
+                    .diff-btn {
+                        border: none;
+                        padding: 6px 10px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        background: #e2e8f0;
+                        transition: 0.2s;
+                    }
+                        .diff-btn:hover {
+                            background: #cbd5e1;
+                        }
+            #details {
+                background: #f1f5f9;
+                border-radius: 12px;
+                padding: 15px;
+                margin: 0 24px;
+                min-height: 80px;
+                color: #334155;
+            }
+            #trainBtn {
+                width: 90%;
+                padding: 12px;
+                margin: 0 auto;
+                border: none;
+                border-radius: 12px;
+                background: #2563eb;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.2s;
+            }
+            #trainBtn:disabled {
+                background: #94a3b8;
+                cursor: not-allowed;
+            }
+                #trainBtn:not(:disabled):hover {
+                    background: #1d4ed8;
+                }
+            
+
+
+            
+    
+    
+    
+    /* END CARDS */
         /* TOPIC */
-        .topic {
+        /* .topic {
             font-weight: bold;
             cursor: pointer;
             padding: 8px;
@@ -36,9 +138,11 @@ body {
         }
             .topic:hover {
                 background: #dbeafe;
-            }/* END TOPIC */
+            } */
+            
+        /* END TOPIC */
             /* SUBTOPIC */
-            .subtopic {
+            /* .subtopic {
                 margin-left: 20px;
                 margin-top: 5px;
                 padding: 6px;
@@ -54,7 +158,8 @@ body {
                 .subtopic.active {
                     background: #dbeafe;
                     border-left: 3px solid #1d4ed8;
-                }/* END SUBTOPIC */
+                } */
+                /* END SUBTOPIC */
 
 /* DETAILS */
 #details {
