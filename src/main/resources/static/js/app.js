@@ -3,25 +3,35 @@ async function loadTopics() {
     const res = await fetch("/quiz/topics");
     topics = await res.json();
 
-    console.log(topics);
+    //console.log(topics);
+    renderTopics(topics);
 }
 
-const tree = document.getElementById("tree");
-function renderTopics() {
-    tree.innerHTML = "";
+// topics
+const topicsSection = document.getElementById("topicsSection");
+function renderTopics(topics) {
+    topicsSection.innerHTML = `
+        <h2>🎯 Topics</h2>
+        <div class="topics-tree">
+            
+            ${topics.map(t => `
+                <button class="topic-button" data-sub="${t.name}">${t.name}</button>
+            `).join("")}
+        
+        </div>
+        <hr>
+    `;
 
-    topics.forEach(t => {
-        const div = document.createElement("div");
-        div.className = "topic-card";
-        div.textContent = t.name;
-
-        div.addEventListener("click", () => {
-            renderSubtopics(t);
+    document.querySelector(".topics-tree")
+        .addEventListener("click", (e) => {
+            if (e.target.classList.contains("topic-button")) {
+                //console.log("klik:", e.target.textContent);
+                renderSubtopics(e.target.dataset.sub);
+            }
         });
+}// END topics
+    
 
-        tree.appendChild(div);
-    });
-}
     const section = document.getElementById("subtopicsSection");
     function renderSubtopics(topic) {
         section.innerHTML = `

@@ -27,11 +27,13 @@ public class SkillController {
         this.questionService = questionService;
     }
 
+    // wyswietlanie tematow i podtematow z bazy danych
     @GetMapping("/topics")
     public List<TopicDTO> getAllTopics() {
         return topicService.getAllTopicsAsDTO();
     }
 
+    // dodawanie pytan do bazy
     @PostMapping("/questions")
     public QuestionResponseDto addQuestion(@RequestBody QuestionRequestDto dto) {
         return questionService.addQuestionToDB(dto);
