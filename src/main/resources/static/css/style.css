@@ -110,166 +110,76 @@ body {
                 .details-block {
                     display: block;
                 }
-                /* END Details */
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                /* 
-                    .subtopic-name {
-                        font-weight: 600;
-                        min-width: 120px;
+                    .stats {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                        margin-top: 12px;
                     }
-                .difficulty {
-                    display: flex;
-                    gap: 8px;
-                }
-                    .diff-btn {
-                        border: none;
-                        padding: 6px 10px;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        background: #e2e8f0;
-                        transition: 0.2s;
-                    }
-                        .diff-btn:hover {
-                            background: #cbd5e1;
+                        .stat {
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                            padding: 10px 12px;
+                            font-size: 14px;
+                            color: #0f172a;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            transition: 0.2s;
                         }
-            #details {
-                background: #f1f5f9;
-                border-radius: 12px;
-                padding: 15px;
-                margin: 0 24px;
-                min-height: 80px;
-                color: #334155;
-            }
-            #trainBtn {
-                width: 100%;
-                padding: 12px;
-                margin: 0 auto;
-                border: none;
-                border-radius: 12px;
-                background: #2563eb;
-                color: white;
-                font-size: 16px;
-                cursor: pointer;
-                transition: 0.2s;
-            }
-            #trainBtn:disabled {
-                background: #94a3b8;
-                cursor: not-allowed;
-            }
-                #trainBtn:not(:disabled):hover {
-                    background: #1d4ed8;
-                } */
-            
-
-
-            
-    
-    
-    
-    /* END CARDS */
-        /* TOPIC */
-        /* .topic {
-            font-weight: bold;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            background: #eff6ff;
-            margin-top: 8px;
-            transition: 0.2s;
-        }
-            .topic:hover {
-                background: #dbeafe;
-            } */
-            
-        /* END TOPIC */
-            /* SUBTOPIC */
-            /* .subtopic {
-                margin-left: 20px;
-                margin-top: 5px;
-                padding: 6px;
-                border-radius: 6px;
-                cursor: pointer;
-                background: #f8fafc;
-                border-left: 3px solid transparent;
-            }
-                .subtopic:hover {
-                    background: #e0f2fe;
-                    border-left: 3px solid #3b82f6;
+                            .stat:hover {
+                                background: #eef2ff;
+                                border-color: #c7d2fe;
+                            }
+                    .master-progress {
+                        margin: 16px 0;
+                        padding: 10px;
+                    }
+                        .temat {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-weight: 500;
+                        }
+                        .progress {
+                            width: 100%;
+                            height: 8px;
+                            background: #e2e8f0;
+                            border-radius: 6px;
+                            overflow: hidden;
+                            margin-top: 6px;
+                        }
+                            .progress-bar {
+                                height: 100%;
+                                background: linear-gradient(90deg, #3b82f6, #22c55e);
+                                border-radius: 6px;
+                                transition: width 0.3s ease;
+                            }
+                .button-quiz {
+                    width: 20%;
+                    margin: 10px auto;
+                    padding: 8px 14px;
+                    display: block;
+                    border: none;
+                    border-radius: 10px;
+                    background: #3b82f6;
+                    color: white;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition: 0.2s;
                 }
-                .subtopic.active {
-                    background: #dbeafe;
-                    border-left: 3px solid #1d4ed8;
-                } */
-                /* END SUBTOPIC */
-
-/* DETAILS */
-
-/* .stat {
-    background: #f0f9ff;
-    border: 1px solid #bae6fd;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-} */
-
-/* BUTTON */
-/* button {
-    background: #1d4ed8;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-button:hover {
-    background: #2563eb;
-}
-
-button:disabled {
-    background: #93c5fd;
-    cursor: not-allowed;
-} */
-
-/* subtitle */
-/* .subtitle {
-    color: #64748b;
-    margin-top: -10px;
-    font-size: 14px;
-} */
-
-/* section spacing feel */
-/* hr {
-    opacity: 0.5;
-} */
-
-/* muted text */
-/* .muted {
-    color: #94a3b8;
-    font-size: 14px;
-} */
-
-/* progress / recent items */
-/* .item {
-    padding: 8px;
-    border-radius: 8px;
-    background: #f0f9ff;
-    margin-bottom: 6px;
-    border: 1px solid #bae6fd;
-    display: flex;
-    justify-content: space-between;
-}
-
-.item strong {
-    color: #1d4ed8;
-} */
+                    .button-quiz:hover {
+                        background: #2563eb;
+                        transform: translateY(-1px);
+                    }
+                    .button-quiz:active {
+                        transform: translateY(0);
+                        background: #1d4ed8;
+                    }
+                    .button-quiz:disabled {
+                        background: #94a3b8;
+                        cursor: not-allowed;
+                        transform: none;
+                    }
+                /* END Details */

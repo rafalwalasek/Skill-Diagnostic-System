@@ -65,140 +65,43 @@ function renderTopics(topics) {
     }// END Subtopics
         // Details
         function difficultyButtons(row, st, diff) {
+            const existingDetails = row.querySelector(".details-block");
+
+            if (existingDetails) {
+                existingDetails.remove();
+            }
+
             const details = document.createElement("div");
+            details.classList.add("details-block");
+
+            const btn = document.createElement("button");
+            btn.textContent = "Start Quiz";
+            btn.classList.add("button-quiz");
 
             details.innerHTML = `
                 <hr>
-
-                <h3>Temat: ${st}</h3>
-                <h3>Trudność: ${diff}</h3>
+                <div class="stats">
+                    <div class="stat">📘 Questions: 20</div>
+                    <div class="stat">🔁 Attempts: 0</div>
+                    <div class="stat">🏷 Status: Not progress</div>
+                </div>
+                <div class="master-progress">
+                    <div class="temat">
+                        <span>📊 Mastery</span>
+                        <span>10%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 10%"></div>
+                    </div>
+                </div>
             `;
 
-            details.classList.add("details-block");
-            if (row.contains(".details-block")) {
-                row.appendChild(details);
-            }
+            btn.onclick = () => {
+                alert("Quiz start: " + st + " | " + diff);
+            };
             
-        }
-        // END Details
-
-
-    //     let selected = {};
-    //     function bindDifficultyButtons(topicName) {
-    //         document.querySelectorAll(".diff-btn").forEach(btn => {
-    //             btn.addEventListener("click", () => {
-    //                 selected = {
-    //                     topic: topicName.name,
-    //                     subtopic: btn.dataset.sub,
-    //                     difficulty: btn.dataset.diff
-    //                 };
-
-    //                 renderDetails(selected);
-    //             });
-    //         });
-    //     }
-    //         const trainBtn = document.getElementById("trainBtn");
-    //         const details = document.getElementById("detailsSection");
-    //         function renderDetails(selected) {
-    //             details.innerHTML = `
-    //                 <div class="stat">🎯 Topic: ${selected.topic}</div>
-    //                 <div class="stat">📌 Subtopic: ${selected.subtopic}</div>
-    //                 <div class="stat">⚡ Difficulty: ${selected.difficulty}</div>
-    //             `;
-
-    //             trainBtn.disabled = false;
-
-    //             trainBtn.addEventListener("click", () => {
-    //                 console.log(selected);
-    //             });
-    //         }
+            details.appendChild(btn);
+            row.appendChild(details);
+        }// END Details
 
 loadTopics().then(renderTopics);
-
-//------------------------------------------------------------------------------------
-
-// let state = {
-//     topics: [],
-//     expanded: {},
-//     selectedSubtopic: null,
-//     stats: null,
-//     progress: [],
-//     recentResults: []
-// }
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     loadTopics();
-// });
-
-// async function loadTopics() {
-//     const res = await fetch("/quiz/topics");
-//     state.topics = await res.json();
-//     renderTree();
-// }
-
-// function renderTree() {
-//     const tree = document.getElementById("tree");
-//     tree.innerHTML = "";
-
-//     state.topics.forEach(topic => {
-
-//         const topicDiv = document.createElement("div");
-//         topicDiv.className = "topic";
-//         topicDiv.innerText = topic.name;
-
-//         topicDiv.onclick = () => {
-//             state.expanded[topic.id] = !state.expanded[topic.id];
-//             renderTree();
-//         };
-
-//         tree.appendChild(topicDiv);
-
-//         if (state.expanded[topic.id]) {
-//             topic.subtopics.forEach(sub => {
-
-//                 const subDiv = document.createElement("div");
-//                 subDiv.className = "subtopic";
-//                 subDiv.innerText = sub.name;
-
-//                 if (state.selectedSubtopic?.id === sub.id) {
-//                     subDiv.classList.add("active");
-//                 }
-
-//                 subDiv.onclick = () => selectSubtopic(sub);
-
-//                 tree.appendChild(subDiv);
-//             });
-//         }
-//     });
-// }
-
-// async function selectSubtopic(subtopic) {
-//     state.selectedSubtopic = subtopic;
-
-//     const res = await fetch(`/quiz/subtopics/${subtopic.id}/stats`);
-//     state.stats = await res.json();
-
-//     renderTree();
-//     renderDetails();
-// }
-
-// function renderDetails() {
-//     const details = document.getElementById("details");
-//     const btn = document.getElementById("trainBtn");
-
-//     if (!state.stats) return;
-
-//     details.innerHTML = `
-//         <div class="stat">📘 Questions: ${state.stats.questionsCount}</div>
-//         <div class="stat">📊 Mastery: ${state.stats.masteryPercent}%</div>
-//         <div class="stat">🔁 Attempts: ${state.stats.attempts}</div>
-//         <div class="stat">⭐ Last result: ${state.stats.lastResult}%</div>
-//         <div class="stat">🏷 Status: ${state.stats.status}</div>
-//     `;
-
-//     btn.disabled = false;
-
-//     btn.onclick = () => {
-//         alert("Quiz start: subtopic " + state.selectedSubtopic.id);
-//     };
-// }
