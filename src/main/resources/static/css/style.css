@@ -31,7 +31,7 @@ body {
             /* Topic section */
             h2 {
                 margin-bottom: 15px;
-                font-size: 18px;
+                font-size: 20px;
                 color: #0f172a;
             }
             .topics-tree {
@@ -61,29 +61,66 @@ body {
                         transform: translateY(-3px);
                         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
                     }
-
-
-
-
-
             /* END Topic section */
-
-            
-                
-            /* .subtopics-row {
+            /* Subtopic section */
+            h3 {
+                margin-bottom: 15px;
+                font-size: 18px;
+                color: #0f172a;
+            }
+            .subtopic-item {
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
                 margin: 0 24px;
             }
-                .subtopic-row-item {
+                .subtopic-item-row {
                     display: flex;
-                    align-items: center;
-                    justify-content: space-between;
+                    flex-direction: column;
                     padding: 10px;
                     background: #f1f5f9;
                     border-radius: 10px;
                 }
+                    .subtopic-item-main {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 10px;
+                        background: #f1f5f9;
+                        border-radius: 10px;
+                    }
+                        .diff-btn {
+                            border: none;
+                            padding: 8px 14px;
+                            border-radius: 8px;
+                            box-shadow: 0 0 2px #000;
+                            color: #000;
+                            cursor: pointer;
+                            transition: 0.2s;
+                        }
+                            .diff-btn:hover {
+                                background: #cbd5e1;
+                            }
+                            .diff-btn:active {
+                                box-shadow: none;
+                                transform: translateY(1px);
+                            }
+            /* END Subtopic section */
+                /* Details */
+                .details-block {
+                    display: block;
+                }
+                /* END Details */
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                /* 
                     .subtopic-name {
                         font-weight: 600;
                         min-width: 120px;

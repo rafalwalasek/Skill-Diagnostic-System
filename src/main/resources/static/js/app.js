@@ -30,58 +30,88 @@ function renderTopics(topics) {
             }
         });
 }// END topics
-    
+    // Subtopics
+    const subtopicsSection = document.getElementById("subtopicsSection");
+    function renderSubtopics(topicString) {
+        const topic = topics.find(topic => topic.name === topicString);
 
-    const section = document.getElementById("subtopicsSection");
-    function renderSubtopics(topic) {
-        section.innerHTML = `
-            <h2>📌 Subtopics: ${topic.name}</h2>
-            <div class="subtopics-row">
-                ${topic.subtopics.map(sub => `
-                    <div class="subtopic-row-item">
-                        <span>${sub.name}</span>
+        //console.log(topic.subtopics);
+        subtopicsSection.innerHTML = `
+            <h3>📌 Subtopics: ${topic.name}</h3>
+            <div class="subtopic-item">
+                ${topic.subtopics.map(st => `
+                    <div class="subtopic-item-row">
+                        <div class="subtopic-item-main">
+                            <span>${st.name}</span>
 
-                        <div>
-                            <button class="diff-btn" data-sub="${sub.name}" data-diff="łatwy">łatwy</button>
-                            <button class="diff-btn" data-sub="${sub.name}" data-diff="średni">średni</button>
-                            <button class="diff-btn" data-sub="${sub.name}" data-diff="trudny">trudny</button>
+                            <div>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="łatwy" style="background: #0f0">łatwy</button>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="średni" style="background: #ff0">średni</button>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="trudny" style="background: #f00">trudny</button>
+                            </div>
                         </div>
                     </div>
                 `).join("")}
             </div>
         `;
 
-        bindDifficultyButtons(topic);
-    }
-        let selected = {};
-        function bindDifficultyButtons(topicName) {
-            document.querySelectorAll(".diff-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    selected = {
-                        topic: topicName.name,
-                        subtopic: btn.dataset.sub,
-                        difficulty: btn.dataset.diff
-                    };
-
-                    renderDetails(selected);
-                });
+        document.querySelector(".subtopic-item")
+            .addEventListener("click", (e) => {
+                if (e.target.classList.contains("diff-btn")) {
+                    const row = e.target.closest(".subtopic-item-row");
+                    difficultyButtons(row, e.target.dataset.st, e.target.dataset.diff);
+                }
             });
-        }
-            const trainBtn = document.getElementById("trainBtn");
-            const details = document.getElementById("detailsSection");
-            function renderDetails(selected) {
-                details.innerHTML = `
-                    <div class="stat">🎯 Topic: ${selected.topic}</div>
-                    <div class="stat">📌 Subtopic: ${selected.subtopic}</div>
-                    <div class="stat">⚡ Difficulty: ${selected.difficulty}</div>
-                `;
+    }// END Subtopics
+        // Details
+        function difficultyButtons(row, st, diff) {
+            const details = document.createElement("div");
 
-                trainBtn.disabled = false;
+            details.innerHTML = `
+                <hr>
 
-                trainBtn.addEventListener("click", () => {
-                    console.log(selected);
-                });
+                <h3>Temat: ${st}</h3>
+                <h3>Trudność: ${diff}</h3>
+            `;
+
+            details.classList.add("details-block");
+            if (row.contains(".details-block")) {
+                row.appendChild(details);
             }
+            
+        }
+        // END Details
+
+
+    //     let selected = {};
+    //     function bindDifficultyButtons(topicName) {
+    //         document.querySelectorAll(".diff-btn").forEach(btn => {
+    //             btn.addEventListener("click", () => {
+    //                 selected = {
+    //                     topic: topicName.name,
+    //                     subtopic: btn.dataset.sub,
+    //                     difficulty: btn.dataset.diff
+    //                 };
+
+    //                 renderDetails(selected);
+    //             });
+    //         });
+    //     }
+    //         const trainBtn = document.getElementById("trainBtn");
+    //         const details = document.getElementById("detailsSection");
+    //         function renderDetails(selected) {
+    //             details.innerHTML = `
+    //                 <div class="stat">🎯 Topic: ${selected.topic}</div>
+    //                 <div class="stat">📌 Subtopic: ${selected.subtopic}</div>
+    //                 <div class="stat">⚡ Difficulty: ${selected.difficulty}</div>
+    //             `;
+
+    //             trainBtn.disabled = false;
+
+    //             trainBtn.addEventListener("click", () => {
+    //                 console.log(selected);
+    //             });
+    //         }
 
 loadTopics().then(renderTopics);
 
