@@ -45,9 +45,9 @@ function renderTopics(topics) {
                             <span>${st.name}</span>
 
                             <div>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="łatwy" style="background: #0f0">łatwy</button>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="średni" style="background: #ff0">średni</button>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="trudny" style="background: #f00">trudny</button>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="EASY" style="background: #0f0">łatwy</button>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="MEDIUM" style="background: #ff0">średni</button>
+                                <button class="diff-btn" data-st="${st.name}" data-diff="HARD" style="background: #f00">trudny</button>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ function renderTopics(topics) {
             details.innerHTML = `
                 <hr>
                 <div class="stats">
-                    <div class="stat">📘 Questions: 20</div>
+                    <div id="question-count" class="stat">📘 Questions: 20</div>
                     <div class="stat">🔁 Attempts: 0</div>
                     <div class="stat">🏷 Status: Not progress</div>
                 </div>
@@ -102,6 +102,23 @@ function renderTopics(topics) {
             
             details.appendChild(btn);
             row.appendChild(details);
+
+            getQuestionCount(row, st, diff);
         }// END Details
 
 loadTopics().then(renderTopics);
+
+// =================================================================================================
+// zliczanie pytan z konkretnego poziomu
+function getQuestionCount(row, st, diff) {
+    const subtop = st.toUpperCase();
+
+    fetch(`/quiz/questionCount?st=${subtop}&diff=${diff}`)
+    .then(response => response.json())
+    .then(data => {
+        //console.log(data);
+        const questionCount = row.querySelector("#question-count");
+        questionCount.textContent = data;
+    })
+    .catch(error => console.error("Błąd:", error));
+}

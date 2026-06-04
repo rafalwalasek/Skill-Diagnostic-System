@@ -4,6 +4,8 @@ import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
+import com.rafal.skilldiagnosticsystem.model.Category;
+import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.model.Topic;
 import com.rafal.skilldiagnosticsystem.service.FileManagerService;
@@ -32,17 +34,17 @@ public class SkillController {
     public List<TopicDTO> getAllTopics() {
         return topicService.getAllTopicsAsDTO();
     }
+    // zliczanie pytan
+    @GetMapping("/questionCount")
+    public Long questionCount(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
+        return questionService.questionCount(st, diff);
+    }
 
     // dodawanie pytan do bazy
     @PostMapping("/questions")
     public QuestionResponseDto addQuestion(@RequestBody QuestionRequestDto dto) {
         return questionService.addQuestionToDB(dto);
     }
-
-//    @GetMapping("/topics/{id}/details")
-//    public  {
-//
-//    }
 
 //    @GetMapping("/questions")
 //    public List<Question> getAllQuestions() {
