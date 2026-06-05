@@ -39,6 +39,11 @@ public class SkillController {
     public Long questionCount(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
         return questionService.questionCount(st, diff);
     }
+    // wyswietlenie wszystkich pytan
+    @GetMapping("/questions")
+    public List<Question> getAllQuestions(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
+        return questionService.getAllQuestions(st, diff);
+    }
 
     // dodawanie pytan do bazy
     @PostMapping("/questions")
@@ -46,10 +51,7 @@ public class SkillController {
         return questionService.addQuestionToDB(dto);
     }
 
-//    @GetMapping("/questions")
-//    public List<Question> getAllQuestions() {
-//        return questionRepository.findAll();
-//    }
+
 //    @PostMapping("/submit")
 //    public double submitAnswers(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
 //        List<Question> questions = questionRepository.findAll();

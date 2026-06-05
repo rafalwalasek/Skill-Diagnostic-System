@@ -14,8 +14,8 @@ function renderTopics(topics) {
         <h2>🎯 Topics</h2>
         <div class="topics-tree">
             
-            ${topics.map(t => `
-                <button class="topic-button" data-sub="${t.name}">${t.name}</button>
+            ${topics.map(topic => `
+                <button class="topic-button" data-sub="${topic.name}">${topic.name}</button>
             `).join("")}
         
         </div>
@@ -81,7 +81,7 @@ function renderTopics(topics) {
             details.innerHTML = `
                 <hr>
                 <div class="stats">
-                    <div id="question-count" class="stat">📘 Questions: 20</div>
+                    <div class="stat">📘 Questions: <span class="count">20</span></div>
                     <div class="stat">🔁 Attempts: 0</div>
                     <div class="stat">🏷 Status: Not progress</div>
                 </div>
@@ -97,7 +97,9 @@ function renderTopics(topics) {
             `;
 
             btn.onclick = () => {
-                alert("Quiz start: " + st + " | " + diff);
+                // alert("Quiz start: " + st + " | " + diff);
+                // window.open("quiz.html");
+                window.open("quiz.html?st=JAVA&diff=EASY");
             };
             
             details.appendChild(btn);
@@ -117,7 +119,7 @@ function getQuestionCount(row, st, diff) {
     .then(response => response.json())
     .then(data => {
         //console.log(data);
-        const questionCount = row.querySelector("#question-count");
+        const questionCount = row.querySelector(".count").textContent = data;
         questionCount.textContent = data;
     })
     .catch(error => console.error("Błąd:", error));

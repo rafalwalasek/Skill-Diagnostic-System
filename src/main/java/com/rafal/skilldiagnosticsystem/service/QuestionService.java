@@ -8,6 +8,8 @@ import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
@@ -47,5 +49,8 @@ public class QuestionService {
 
     public Long questionCount(Category st, DifficultyLevel diff) {
         return questionRepository.countByCategoryAndDifficultyLevel(st, diff);
+    }
+    public List<Question> getAllQuestions(Category st, DifficultyLevel diff) {
+        return questionRepository.findByCategoryAndDifficultyLevel(st, diff);
     }
 }
