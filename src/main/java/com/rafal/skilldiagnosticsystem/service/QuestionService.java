@@ -8,7 +8,11 @@ import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Math.min;
 
 @Service
 public class QuestionService {
@@ -50,7 +54,9 @@ public class QuestionService {
     public Long questionCount(Category st, DifficultyLevel diff) {
         return questionRepository.countByCategoryAndDifficultyLevel(st, diff);
     }
-    public List<Question> getAllQuestions(Category st, DifficultyLevel diff) {
-        return questionRepository.findByCategoryAndDifficultyLevel(st, diff);
+    public List<Question> getRandomQuestions(Category st, DifficultyLevel diff) {
+        List<Question> questions = questionRepository.findByCategoryAndDifficultyLevel(st, diff);
+        Collections.shuffle(questions);
+        return questions.subList(0, min(3, questions.size()));
     }
 }

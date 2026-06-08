@@ -41,8 +41,8 @@ public class SkillController {
     }
     // wyswietlenie wszystkich pytan
     @GetMapping("/questions")
-    public List<Question> getAllQuestions(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
-        return questionService.getAllQuestions(st, diff);
+    public List<Question> randomQuestions(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
+        return questionService.getRandomQuestions(st, diff);
     }
 
     // dodawanie pytan do bazy
