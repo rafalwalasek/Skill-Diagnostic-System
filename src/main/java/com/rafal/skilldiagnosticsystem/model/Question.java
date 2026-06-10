@@ -12,7 +12,9 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
+
     private String answerA;
     private String answerB;
     private String answerC;
@@ -21,8 +23,10 @@ public class Question {
 
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLevel;
-    @Enumerated(EnumType.STRING)
-    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subtopic_id")
+    private Subtopic subtopic;
 
     public boolean isCorrect(String odp) {
         return correctAnswer.equals(odp);

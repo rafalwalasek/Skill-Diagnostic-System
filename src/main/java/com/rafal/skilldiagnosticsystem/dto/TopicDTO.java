@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class TopicDTO {
     private Long id;
-    private String name;
-    private List<SubtopicDTO> subtopics;
+    private String topicTitle;
+    private List<SubtopicDTO> subtopicsDTOS;
 }

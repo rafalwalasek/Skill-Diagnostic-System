@@ -15,8 +15,8 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String topicTitle;
 
     @OneToMany(mappedBy = "topic")
-    private List<Subtopic> subtopics = new ArrayList<>(); // zabezpieczenie przed: NullPointerException
+    private List<Subtopic> subtopics = new ArrayList<>(); //zabezpieczenie przed: NullPointerException
 }

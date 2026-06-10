@@ -25,18 +25,18 @@ public class TopicService {
         for (Topic topic : topics) {
             TopicDTO dto = new TopicDTO();
             dto.setId(topic.getId());
-            dto.setName(topic.getName());
+            dto.setTopicTitle(topic.getTopicTitle());
 
             List<SubtopicDTO> subtopicDTOS = new ArrayList<>();
             for (Subtopic subtopic : topic.getSubtopics()) {
                 SubtopicDTO subDto = new SubtopicDTO();
                 subDto.setId(subtopic.getId());
-                subDto.setName(subtopic.getName());
+                subDto.setSubtopicTitle(subtopic.getSubtopicTitle());
 
                 subtopicDTOS.add(subDto);
             }
 
-            dto.setSubtopics(subtopicDTOS);
+            dto.setSubtopicsDTOS(subtopicDTOS);
             topicDTOS.add(dto);
         }
 

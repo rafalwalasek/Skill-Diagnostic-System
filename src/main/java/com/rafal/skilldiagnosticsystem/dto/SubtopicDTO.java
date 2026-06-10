@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class SubtopicDTO {
     private Long id;
-    private String name;
+    private String subtopicTitle;
 }

@@ -81,7 +81,7 @@ function renderTopics(topics) {
             details.innerHTML = `
                 <hr>
                 <div class="stats">
-                    <div class="stat">📘 Questions: <span class="count">20</span></div>
+                    <div class="stat">📘 Questions: <span class="count">0</span></div>
                     <div class="stat">🔁 Attempts: 0</div>
                     <div class="stat">🏷 Status: Not progress</div>
                 </div>
@@ -119,7 +119,7 @@ function getQuestionCount(row, st, diff) {
     .then(response => response.json())
     .then(data => {
         //console.log(data);
-        const questionCount = row.querySelector(".count").textContent = data;
+        const questionCount = row.querySelector(".count");
         questionCount.textContent = data;
     })
     .catch(error => console.error("Błąd:", error));
