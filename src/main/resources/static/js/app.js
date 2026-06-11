@@ -1,21 +1,21 @@
-let topics = [];
+let topicsAndSubtopics = [];
 async function loadTopics() {
     const res = await fetch("/quiz/topics");
-    topics = await res.json();
+    topicsAndSubtopics = await res.json();
 
-    //console.log(topics);
-    renderTopics(topics);
+    console.log(topicsAndSubtopics);
+    renderTopics(topicsAndSubtopics);
 }
 
 // topics
 const topicsSection = document.getElementById("topicsSection");
-function renderTopics(topics) {
+function renderTopics(topicsAndSubtopics) {
     topicsSection.innerHTML = `
         <h2>🎯 Topics</h2>
         <div class="topics-tree">
             
-            ${topics.map(topic => `
-                <button class="topic-button" data-sub="${topic.name}">${topic.name}</button>
+            ${topicsAndSubtopics.map(topic => `
+                <button class="topic-button" data-sub="${topic.id}">${topic.topicTitle}</button>
             `).join("")}
         
         </div>
@@ -32,22 +32,23 @@ function renderTopics(topics) {
 }// END topics
     // Subtopics
     const subtopicsSection = document.getElementById("subtopicsSection");
-    function renderSubtopics(topicString) {
-        const topic = topics.find(topic => topic.name === topicString);
+    function renderSubtopics(topicId) {
+        const id = Number(topicId);
+        const topic = topicsAndSubtopics.find(topic => topic.id === id);
 
-        //console.log(topic.subtopics);
+        //console.log(id);
         subtopicsSection.innerHTML = `
-            <h3>📌 Subtopics: ${topic.name}</h3>
+            <h3>📌 Subtopics: ${topic.topicTitle}</h3>
             <div class="subtopic-item">
-                ${topic.subtopics.map(st => `
+                ${topic.subtopicsDTOS.map(st => `
                     <div class="subtopic-item-row">
                         <div class="subtopic-item-main">
-                            <span>${st.name}</span>
+                            <span>${st.subtopicTitle}</span>
 
                             <div>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="EASY" style="background: #0f0">łatwy</button>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="MEDIUM" style="background: #ff0">średni</button>
-                                <button class="diff-btn" data-st="${st.name}" data-diff="HARD" style="background: #f00">trudny</button>
+                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="EASY" style="background: #0f0">łatwy</button>
+                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="MEDIUM" style="background: #ff0">średni</button>
+                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="HARD" style="background: #f00">trudny</button>
                             </div>
                         </div>
                     </div>
@@ -58,13 +59,15 @@ function renderTopics(topics) {
         document.querySelector(".subtopic-item")
             .addEventListener("click", (e) => {
                 if (e.target.classList.contains("diff-btn")) {
+                    //console.log("klik:", e.target.textContent);
                     const row = e.target.closest(".subtopic-item-row");
-                    difficultyButtons(row, e.target.dataset.st, e.target.dataset.diff);
+                    console.log("klik:", e.target.dataset.subtopicId);
+                    difficultyButtons(row, e.target.dataset.subtopicId, e.target.dataset.diff);
                 }
             });
     }// END Subtopics
         // Details
-        function difficultyButtons(row, st, diff) {
+        function difficultyButtons(row, subtopicId, diff) {
             const existingDetails = row.querySelector(".details-block");
 
             if (existingDetails) {
@@ -108,7 +111,7 @@ function renderTopics(topics) {
             getQuestionCount(row, st, diff);
         }// END Details
 
-loadTopics().then(renderTopics);
+loadTopics();
 
 // =================================================================================================
 // zliczanie pytan z konkretnego poziomu

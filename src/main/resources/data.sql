@@ -1,17 +1,17 @@
--- INSERT INTO topic (name) VALUES 
+-- INSERT INTO topic (topic_title) VALUES 
 -- ('Java'),
 -- ('Bazy danych'),
 -- ('Projektowanie aplikacji'),
 -- ('Referring');
 
--- INSERT INTO subtopic(name, topic_id) VALUES 
--- ('Java', 1),
--- ('Spring', 1),
--- ('Bazy danych', 2),
--- ('Projektowanie aplikacji', 3),
--- ('Referring', 4);
+-- INSERT INTO subtopic(topic_id, subtopic_title) VALUES 
+-- (1, 'Java'),
+-- (1, 'Spring'),
+-- (2, 'Bazy danych'),
+-- (3, 'Projektowanie aplikacji'),
+-- (4, 'Referring');
 
-INSERT INTO question(content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level, category) VALUES
+-- INSERT INTO question(content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level, category) VALUES
 -- ('Jaka jest różnica między obiektem wartości (Value Object) a encją (Entity) w kontekście DDD?', 'VO jest niemutowalny (ang. immutable), a encja jest mutowalna (ang. mutable)', 'VO nie posiada identyfikatora a encja posiada', 'Cykl życia VO może zależeć od encji, ale cykl życia encji nie może zależeć od VO', 'Wszystkie odpowiedzi są poprawne', 'D', 'HARD', 'PROJEKTOWANIE_APLIKACJI'),
 -- ('Który typ danych w Javie służy do przechowywania liczb całkowitych?', 'double', 'int', 'char', 'boolean', 'B', 'EASY', 'JAVA'),
 -- ('Która pętla wykona się co najmniej raz niezależnie od warunku?', 'for', 'while', 'do-while', 'foreach', 'C', 'EASY', 'JAVA'),
