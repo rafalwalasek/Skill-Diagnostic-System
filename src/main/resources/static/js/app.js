@@ -7,6 +7,33 @@ async function loadTopics() {
     renderTopics(topicsAndSubtopics);
 }
 
+// nasluchiwanie co zostalo klikniete
+document.addEventListener("click", (e) => {
+    // console.log("CLICK WORKS");
+    // console.log("CLICK:", e.target);
+
+    const topicBtn = e.target.closest(".topic-button");
+    const diffBtn = e.target.closest(".diff-btn");
+
+    if (!topicBtn && !diffBtn) return;
+
+    if (topicBtn) {
+        renderSubtopics(topicBtn.dataset.sub);
+        return;
+    }
+    if (diffBtn) {
+        const row = diffBtn.closest(".subtopic-item-row");
+        if (!row) return;
+
+        const subtopicId = diffBtn.dataset.subtopicId;
+        const diff = diffBtn.dataset.diff;
+
+        //console.log("DIFF CLICK:", { subtopicId, diff, row });
+        renderSubtopicOverview(row, subtopicId, diff);
+        return;
+    }
+});// END nasluchiwanie co zostalo klikniete
+
 // topics
 const topicsSection = document.getElementById("topicsSection");
 function renderTopics(topicsAndSubtopics) {
@@ -21,14 +48,6 @@ function renderTopics(topicsAndSubtopics) {
         </div>
         <hr>
     `;
-
-    document.querySelector(".topics-tree")
-        .addEventListener("click", (e) => {
-            if (e.target.classList.contains("topic-button")) {
-                //console.log("klik:", e.target.textContent);
-                renderSubtopics(e.target.dataset.sub);
-            }
-        });
 }// END topics
     // Subtopics
     const subtopicsSection = document.getElementById("subtopicsSection");
@@ -57,53 +76,40 @@ function renderTopics(topicsAndSubtopics) {
         `;
     }// END Subtopics
         // Details
-        document.addEventListener("click", (e) => {
-            console.log("TARGET:", e.target);
-            console.log("ROW:", e.target.closest(".subtopic-item-row"));
+        function renderSubtopicOverview(row, subtopicId, difficulty) {
+            const existingDetails = row.querySelector(".details-block");
 
-            if (e.target.classList.contains("diff-btn")) {
-                const row = e.target.closest(".subtopic-item-row");
-                const subtopicId = e.target.dataset.subtopicId;
-                const diff = e.target.dataset.diff;
+            // console.log(existingDetails);
 
-                renderSubtopicOverview(row, subtopicId, diff);
+            if (existingDetails) {
+                existingDetails.remove();
             }
-        });
-            function renderSubtopicOverview(row, subtopicId, difficulty) {
-                const existingDetails = row.querySelector(".details-block");
-                const id = Number(subtopicId);
 
-                // console.log(existingDetails);
+            const details = document.createElement("div");
+            details.classList.add("details-block");
 
-                if (existingDetails) {
-                    existingDetails.remove();
-                }
-
-                const details = document.createElement("div");
-                details.classList.add("details-block");
-
-                details.innerHTML = `
-                    <hr>
-                    <div class="stats">
-                        <div class="stat">📘 Questions: <span class="count">0</span></div>
-                        <div class="stat">🔁 Attempts: 0</div>
-                        <div class="stat">🏷 Status: Not progress</div>
+            details.innerHTML = `
+                <hr>
+                <div class="stats">
+                    <div class="stat">📘 Questions: <span class="question-count">0</span></div>
+                    <div class="stat">🔁 Attempts: 0</div>
+                    <div class="stat">🏷 Status: Not progress</div>
+                </div>
+                <div class="master-progress">
+                    <div class="temat">
+                        <span>📊 Mastery</span>
+                        <span>10%</span>
                     </div>
-                    <div class="master-progress">
-                        <div class="temat">
-                            <span>📊 Mastery</span>
-                            <span>10%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 10%"></div>
-                        </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 10%"></div>
                     </div>
-                `;
+                </div>
+            `;
 
-                row.appendChild(details);
+            row.appendChild(details);
 
-                getQuestionCount(row, subtopicId, difficulty);
-            }// END Details
+            getQuestionCount(row, subtopicId, difficulty);
+        }// END Details
 
 loadTopics();
 
@@ -114,54 +120,8 @@ function getQuestionCount(row, subtopicId, difficulty) {
     .then(response => response.json())
     .then(data => {
         //console.log(data);
-        const questionCount = row.querySelector(".count");
+        const questionCount = row.querySelector(".question-count");
         questionCount.textContent = data;
     })
     .catch(error => console.error("Błąd:", error));
 }
-
-
-
-// function difficultyButtons(row, subtopicId, diff) {
-//             const existingDetails = row.querySelector(".details-block");
-
-//             if (existingDetails) {
-//                 existingDetails.remove();
-//             }
-
-//             const details = document.createElement("div");
-//             details.classList.add("details-block");
-
-//             const btn = document.createElement("button");
-//             btn.textContent = "Start Quiz";
-//             btn.classList.add("button-quiz");
-
-            // details.innerHTML = `
-            //     <hr>
-            //     <div class="stats">
-            //         <div class="stat">📘 Questions: <span class="count">0</span></div>
-            //         <div class="stat">🔁 Attempts: 0</div>
-            //         <div class="stat">🏷 Status: Not progress</div>
-            //     </div>
-            //     <div class="master-progress">
-            //         <div class="temat">
-            //             <span>📊 Mastery</span>
-            //             <span>10%</span>
-            //         </div>
-            //         <div class="progress">
-            //             <div class="progress-bar" style="width: 10%"></div>
-            //         </div>
-            //     </div>
-            // `;
-
-            // btn.onclick = () => {
-                // alert("Quiz start: " + st + " | " + diff);
-                // window.open("quiz.html");
-        //         window.open("quiz.html?st=JAVA&diff=EASY");
-        //     };
-            
-        //     details.appendChild(btn);
-        //     row.appendChild(details);
-
-        //     getQuestionCount(row, st, diff);
-        // }
