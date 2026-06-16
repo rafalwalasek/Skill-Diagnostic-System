@@ -1,15 +1,23 @@
 let questions = [];
-fetch("/quiz/questions?st=JAVA&diff=EASY")
+
+// console.log(window.location.search);
+const urlParams = new URLSearchParams(window.location.search); // pobranie wartosci z adresu URL
+
+const subtopicId = urlParams.get("subtopicId");
+const difficulty = urlParams.get("difficulty");
+
+fetch(`/quiz/questionsToDiagnostic?subtopicId=${subtopicId}&difficulty=${difficulty}`)
     .then(res => {
         // console.log("STATUS:", res.status);
         return res.json();
     })
     .then(data => {
-        // console.log("DATA:", data);
+        // console.log(data);
         questions = data;
         renderQuestion();
     });
 
+// wyswietlanie pytan
 let currentIndex = 0;
 function renderQuestion() {
     const currentQuestion = questions[currentIndex];
@@ -36,53 +44,68 @@ function renderQuestion() {
             </button>
         </div>
     `;
-}
-    let answers = {};
-    function renderAnswer(id, key, text) {
-        const checked = answers[id] === key ? "checked" : "";
+}// END wyswietlanie pytan
 
-        return `
-            <label>
-                <input type="radio"
-                    name="q${id}"
-                    value="${key}"
-                    ${checked}
-                    onchange="saveAnswer(${id}, '${key}')">
-                ${key}. ${text}
-            </label>
-        `;
-    }
-        function saveAnswer(id, answer) {
-            answers[id] = answer;
-        }
-    function nextQuestion() {
-        if (currentIndex < questions.length - 1) {
-            currentIndex++;
-            renderQuestion();
-        }
-    }
-    function prevQuestion() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            renderQuestion();
-        }
-    }
-    function submitQuiz() {
-        const userAnswerList = Object.keys(answers).map(qId => ({
-            questionId: parseInt(qId),
-            answer: answers[qId]
-        }));
 
-    //     fetch('/quiz/submit', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({ userAnswerList })
-    //     })
-    //     .then(res => res.json())
-    //     .then(result => {
-    //         document.getElementById("result").innerText =
-    //             "Twój wynik: " + result;
-    //     });
 
-        alert(JSON.stringify(userAnswerList, null, 2));
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // let answers = {};
+    // function renderAnswer(id, key, text) {
+    //     const checked = answers[id] === key ? "checked" : "";
+
+    //     return `
+    //         <label>
+    //             <input type="radio"
+    //                 name="q${id}"
+    //                 value="${key}"
+    //                 ${checked}
+    //                 onchange="saveAnswer(${id}, '${key}')">
+    //             ${key}. ${text}
+    //         </label>
+    //     `;
+    // }
+    //     function saveAnswer(id, answer) {
+    //         answers[id] = answer;
+    //     }
+    // function nextQuestion() {
+    //     if (currentIndex < questions.length - 1) {
+    //         currentIndex++;
+    //         renderQuestion();
+    //     }
+    // }
+    // function prevQuestion() {
+    //     if (currentIndex > 0) {
+    //         currentIndex--;
+    //         renderQuestion();
+    //     }
+    // }
+    // function submitQuiz() {
+    //     const userAnswerList = Object.keys(answers).map(qId => ({
+    //         questionId: parseInt(qId),
+    //         answer: answers[qId]
+    //     }));
+
+    // //     fetch('/quiz/submit', {
+    // //         method: 'POST',
+    // //         headers: {'Content-Type': 'application/json'},
+    // //         body: JSON.stringify({ userAnswerList })
+    // //     })
+    // //     .then(res => res.json())
+    // //     .then(result => {
+    // //         document.getElementById("result").innerText =
+    // //             "Twój wynik: " + result;
+    // //     });
+
+    //     alert(JSON.stringify(userAnswerList, null, 2));
+    // }

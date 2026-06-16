@@ -23,11 +23,25 @@ public class QuestionService {
     public Long questionCount(Long subtopicId, DifficultyLevel diff) {
         return questionRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, diff);
     }
-//    public List<Question> getRandomQuestions(Category st, DifficultyLevel diff) {
-//        List<Question> questions = questionRepository.findByCategoryAndDifficultyLevel(st, diff);
-//        Collections.shuffle(questions);
-//        return questions.subList(0, min(3, questions.size()));
-//    }
+    public List<Question> getRandomQuestions(Long subtopicId, DifficultyLevel difficulty) {
+        List<Question> questions = questionRepository.findBySubtopicIdAndDifficultyLevel(subtopicId, difficulty);
+        Collections.shuffle(questions);
+        return questions.subList(0, min(3, questions.size()));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    public QuestionResponseDto addQuestionToDB(QuestionRequestDto questionRequestDto) {
 //        Question question = new Question();

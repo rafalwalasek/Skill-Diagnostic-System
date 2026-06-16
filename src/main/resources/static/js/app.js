@@ -104,11 +104,19 @@ function renderTopics(topicsAndSubtopics) {
                         <div class="progress-bar" style="width: 10%"></div>
                     </div>
                 </div>
+                <div>
+                    <button class="button-quiz" data-id="${subtopicId}" data-diff="${difficulty}">Start test</button>
+                </div>
             `;
 
             row.appendChild(details);
 
             getQuestionCount(row, subtopicId, difficulty);
+
+            const startQuiz = details.querySelector(".button-quiz");
+            startQuiz.addEventListener("click", () => {
+                startSkillDiagnostic(subtopicId, difficulty);
+            });
         }// END Details
 
 loadTopics();
@@ -124,4 +132,9 @@ function getQuestionCount(row, subtopicId, difficulty) {
         questionCount.textContent = data;
     })
     .catch(error => console.error("Błąd:", error));
+}// END zliczanie pytan z konkretnego poziomu
+
+// przejscie do diagnostyki
+function startSkillDiagnostic(subtopicId, difficulty) {
+    window.location.href = `quiz.html?subtopicId=${subtopicId}&difficulty=${difficulty}`;
 }

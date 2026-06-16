@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     long countBySubtopicIdAndDifficultyLevel(Long subtopicId, DifficultyLevel diff);
-    //List<Question> findByCategoryAndDifficultyLevel(Category st, DifficultyLevel diff);
+    List<Question> findBySubtopicIdAndDifficultyLevel(Long subtopicId, DifficultyLevel difficulty);
 }

@@ -34,11 +34,19 @@ public class SkillController {
     public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {
         return questionService.questionCount(subtopicId, diff);
     }
-    // wyswietlenie wszystkich pytan
-//    @GetMapping("/questions")
-//    public List<Question> randomQuestions(@RequestParam Category st, @RequestParam DifficultyLevel diff) {
-//        return questionService.getRandomQuestions(st, diff);
-//    }
+    // wyswietlenie konkretnych pytan do diagnostyki
+    @GetMapping("/questionsToDiagnostic")
+    public List<Question> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
+        return questionService.getRandomQuestions(subtopicId, difficulty);
+    }
+
+
+
+
+
+
+
+
 
     // dodawanie pytan do bazy
 //    @PostMapping("/questions")
