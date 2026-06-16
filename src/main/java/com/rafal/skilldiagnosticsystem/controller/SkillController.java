@@ -3,6 +3,7 @@ package com.rafal.skilldiagnosticsystem.controller;
 //import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
 //import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
+import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.model.Question;
@@ -11,6 +12,7 @@ import com.rafal.skilldiagnosticsystem.service.TopicService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 //@CrossOrigin(origins = "http://localhost:5500")
 @RequestMapping("/quiz")
@@ -41,7 +43,10 @@ public class SkillController {
         return questionService.getRandomQuestions(subtopicId, difficulty);
     }
 
-
+    @PostMapping("/userResults")
+    public void userAnswer(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
+        System.out.println(quizSubmissionRequest.getUserAnswerMap());
+    }
 
 
 

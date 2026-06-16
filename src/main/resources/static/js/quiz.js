@@ -15,11 +15,6 @@ fetch(`/quiz/questionsToDiagnostic?subtopicId=${subtopicId}&difficulty=${difficu
         renderQuestion();
     });
 // =============================================================================
-
-
-
-
-
 // wyswietlenie tresci
 let currentIndex = 0;
 function renderQuestion() {
@@ -64,10 +59,6 @@ function renderQuestion() {
             </label>
         `;
     }// END wyswietlenie odpowiedzi
-        //  odpowiedzi
-        function saveAnswer(id, answer) {
-            answers[id] = answer;
-        }// END  odpowiedzi
     // przejscie pomiedzy pytaniami
     function nextQuestion() {
         if (currentIndex < questions.length - 1) {
@@ -81,23 +72,39 @@ function renderQuestion() {
             renderQuestion();
         }
     }// END przejscie pomiedzy pytaniami
+// ==================================================================================
+// zapisanie odpowiedzi
+function saveAnswer(id, answer) {
+    answers[id] = answer;
+}// END zapisanie odpowiedzi
+    // wyslanie odpowiedzi i koniec skilla
+    function submitQuiz() {
+        // console.log(answers);
+        // console.log(JSON.stringify(answers));
 
-    // function submitQuiz() {
-    //     const userAnswerList = Object.keys(answers).map(qId => ({
-    //         questionId: parseInt(qId),
-    //         answer: answers[qId]
-    //     }));
+        fetch(`/quiz/userResults`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                userAnswerMap: answers
+            })
+        })
 
-    // //     fetch('/quiz/submit', {
-    // //         method: 'POST',
-    // //         headers: {'Content-Type': 'application/json'},
-    // //         body: JSON.stringify({ userAnswerList })
-    // //     })
-    // //     .then(res => res.json())
-    // //     .then(result => {
-    // //         document.getElementById("result").innerText =
-    // //             "Twój wynik: " + result;
-    // //     });
+        // const userAnswerList = Object.keys(answers).map(qId => ({
+        //     questionId: parseInt(qId),
+        //     answer: answers[qId]
+        // }));
 
-    //     alert(JSON.stringify(userAnswerList, null, 2));
-    // }
+        //     fetch('/quiz/submit', {
+        //         method: 'POST',
+        //         headers: {'Content-Type': 'application/json'},
+        //         body: JSON.stringify({ userAnswerList })
+        //     })
+        //     .then(res => res.json())
+        //     .then(result => {
+        //         document.getElementById("result").innerText =
+        //             "Twój wynik: " + result;
+        //     });
+
+            // alert(JSON.stringify(userAnswerList, null, 2));
+    }// END wyslanie odpowiedzi i koniec skilla

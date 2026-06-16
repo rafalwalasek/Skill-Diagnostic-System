@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuestionResponseDto {
+    private Long id;
     private String content;
     private String answerA;
     private String answerB;
