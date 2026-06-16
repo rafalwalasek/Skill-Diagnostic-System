@@ -2,6 +2,7 @@ package com.rafal.skilldiagnosticsystem.controller;
 
 //import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
 //import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
+import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.model.Question;
@@ -36,7 +37,7 @@ public class SkillController {
     }
     // wyswietlenie konkretnych pytan do diagnostyki
     @GetMapping("/questionsToDiagnostic")
-    public List<Question> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
+    public List<QuestionResponseDto> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return questionService.getRandomQuestions(subtopicId, difficulty);
     }
 

@@ -1,8 +1,6 @@
 let questions = [];
-
 // console.log(window.location.search);
 const urlParams = new URLSearchParams(window.location.search); // pobranie wartosci z adresu URL
-
 const subtopicId = urlParams.get("subtopicId");
 const difficulty = urlParams.get("difficulty");
 
@@ -16,8 +14,13 @@ fetch(`/quiz/questionsToDiagnostic?subtopicId=${subtopicId}&difficulty=${difficu
         questions = data;
         renderQuestion();
     });
+// =============================================================================
 
-// wyswietlanie pytan
+
+
+
+
+// wyswietlenie tresci
 let currentIndex = 0;
 function renderQuestion() {
     const currentQuestion = questions[currentIndex];
@@ -44,52 +47,41 @@ function renderQuestion() {
             </button>
         </div>
     `;
-}// END wyswietlanie pytan
+}// END wyswietlenie tresci
+    // wyswietlenie odpowiedzi
+    let answers = {};
+    function renderAnswer(id, key, text) {
+        const checked = answers[id] === key ? "checked" : "";
 
+        return `
+            <label>
+                <input type="radio"
+                    name="q${id}"
+                    value="${key}"
+                    ${checked}
+                    onchange="saveAnswer(${id}, '${key}')">
+                ${key}. ${text}
+            </label>
+        `;
+    }// END wyswietlenie odpowiedzi
+        //  odpowiedzi
+        function saveAnswer(id, answer) {
+            answers[id] = answer;
+        }// END  odpowiedzi
+    // przejscie pomiedzy pytaniami
+    function nextQuestion() {
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        }
+    }
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+        }
+    }// END przejscie pomiedzy pytaniami
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let answers = {};
-    // function renderAnswer(id, key, text) {
-    //     const checked = answers[id] === key ? "checked" : "";
-
-    //     return `
-    //         <label>
-    //             <input type="radio"
-    //                 name="q${id}"
-    //                 value="${key}"
-    //                 ${checked}
-    //                 onchange="saveAnswer(${id}, '${key}')">
-    //             ${key}. ${text}
-    //         </label>
-    //     `;
-    // }
-    //     function saveAnswer(id, answer) {
-    //         answers[id] = answer;
-    //     }
-    // function nextQuestion() {
-    //     if (currentIndex < questions.length - 1) {
-    //         currentIndex++;
-    //         renderQuestion();
-    //     }
-    // }
-    // function prevQuestion() {
-    //     if (currentIndex > 0) {
-    //         currentIndex--;
-    //         renderQuestion();
-    //     }
-    // }
     // function submitQuiz() {
     //     const userAnswerList = Object.keys(answers).map(qId => ({
     //         questionId: parseInt(qId),
