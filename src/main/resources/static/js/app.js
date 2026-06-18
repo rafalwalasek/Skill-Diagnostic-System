@@ -22,19 +22,27 @@ document.addEventListener("click", (e) => {
         return;
     }
     if (diffBtn) {
-        const row = diffBtn.closest(".subtopic-item-row");
-        if (!row) return;
+        const container = diffBtn.closest(".subtopic-container");
+        if (!container) return;
+
+        const details = container.querySelector(".subtopic-details");
 
         const subtopicId = diffBtn.dataset.subtopicId;
         const diff = diffBtn.dataset.diff;
 
         //console.log("DIFF CLICK:", { subtopicId, diff, row });
-        renderSubtopicOverview(row, subtopicId, diff);
+        renderSubtopicOverview(details, subtopicId, diff);
         return;
     }
 });// END nasluchiwanie co zostalo klikniete
 
 // topics
+const topicIcons = {
+    "Java": "☕",
+    "Bazy danych": "🗄️",
+    "Projektowanie aplikacji": "🏗️",
+    "Referring": "⚽"
+};
 const topicsSection = document.getElementById("topicsSection");
 function renderTopics(topicsAndSubtopics) {
     topicsSection.innerHTML = `
@@ -42,11 +50,15 @@ function renderTopics(topicsAndSubtopics) {
         <div class="topics-tree">
             
             ${topicsAndSubtopics.map(topic => `
-                <button class="topic-button" data-sub="${topic.id}">${topic.topicTitle}</button>
+                <button class="topic-button" data-sub="${topic.id}">
+                    <span class="topic-icon">
+                        ${topicIcons[topic.topicTitle] ?? "📘"}
+                    </span>
+                    ${topic.topicTitle}
+                </button>
             `).join("")}
         
         </div>
-        <hr>
     `;
 }// END topics
     // Subtopics
@@ -58,26 +70,49 @@ function renderTopics(topicsAndSubtopics) {
         //console.log(id);
         subtopicsSection.innerHTML = `
             <h3>📌 Subtopics: ${topic.topicTitle}</h3>
-            <div class="subtopic-item">
-                ${topic.subtopicsDTOS.map(st => `
-                    <div class="subtopic-item-row">
-                        <div class="subtopic-item-main">
-                            <span>${st.subtopicTitle}</span>
+            <div class="subtopic-list">
 
-                            <div>
-                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="EASY" style="background: #0f0">łatwy</button>
-                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="MEDIUM" style="background: #ff0">średni</button>
-                                <button class="diff-btn" data-subtopic-id="${st.id}" data-diff="HARD" style="background: #f00">trudny</button>
+                ${topic.subtopicsDTOS.map(st => `
+
+                    <div class="subtopic-container">
+
+                        <div class="subtopic-item-row">
+                            <div class="subtopic-title">
+                                ${st.subtopicTitle}
+                            </div>
+                            <div class="difficulty-buttons">
+                                <button 
+                                    class="diff-btn easy" 
+                                    data-subtopic-id="${st.id}" 
+                                    data-diff="EASY">
+                                    łatwy
+                                </button>
+                                <button 
+                                    class="diff-btn medium" 
+                                    data-subtopic-id="${st.id}" 
+                                    data-diff="MEDIUM">
+                                    średni
+                                </button>
+                                <button 
+                                    class="diff-btn hard" 
+                                    data-subtopic-id="${st.id}" 
+                                    data-diff="HARD">
+                                    trudny
+                                </button>        
                             </div>
                         </div>
+                        <div class="subtopic-details"></div>
+
                     </div>
+
                 `).join("")}
+
             </div>
         `;
     }// END Subtopics
         // Details
-        function renderSubtopicOverview(row, subtopicId, difficulty) {
-            const existingDetails = row.querySelector(".details-block");
+        function renderSubtopicOverview(details, subtopicId, difficulty) {
+            const existingDetails = details.querySelector(".details-block");
 
             // console.log(existingDetails);
 
@@ -85,42 +120,54 @@ function renderTopics(topicsAndSubtopics) {
                 existingDetails.remove();
             }
 
-            const details = document.createElement("div");
-            details.classList.add("details-block");
+            const detailsBlock = document.createElement("div");
+            detailsBlock.classList.add("details-block");
 
-            details.innerHTML = `
-                <hr>
+            detailsBlock.innerHTML = `
                 <div class="stats">
-                    <div class="stat">📘 Questions: <span class="question-count">0</span></div>
-                    <div class="stat">🔁 Attempts: 0</div>
-                    <div class="stat">🏷 Status: Not progress</div>
+                    <div class="stat">
+                        📘 Questions: 
+                        <span class="question-count">0</span>
+                    </div>
+                    <div class="stat">
+                        🔁 Attempts: 
+                        <span>0</span>
+                    </div>
+                    <div class="stat">
+                        🏷 Status: 
+                        <span>Not progress</span>
+                    </div>
                 </div>
                 <div class="master-progress">
-                    <div class="temat">
+                    <div class="master-header">
                         <span>📊 Mastery</span>
-                        <span>10%</span>
+                        <span class="master-value">
+                            10%
+                        </span>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar" style="width: 10%"></div>
+                        <div class="progress-bar"></div>
                     </div>
                 </div>
-                <div>
-                    <button class="button-quiz" data-id="${subtopicId}" data-diff="${difficulty}">Start test</button>
-                </div>
+                <button 
+                    class="button-quiz"
+                    data-id="${subtopicId}"
+                    data-diff="${difficulty}">
+                    Start test
+                </button>
             `;
 
-            row.appendChild(details);
+            details.appendChild(detailsBlock);
 
-            getQuestionCount(row, subtopicId, difficulty);
+            getQuestionCount(detailsBlock, subtopicId, difficulty);
 
-            const startQuiz = details.querySelector(".button-quiz");
+            const startQuiz = detailsBlock.querySelector(".button-quiz");
             startQuiz.addEventListener("click", () => {
                 startSkillDiagnostic(subtopicId, difficulty);
             });
         }// END Details
 
 loadTopics();
-
 // =================================================================================================
 // zliczanie pytan z konkretnego poziomu
 function getQuestionCount(row, subtopicId, difficulty) {

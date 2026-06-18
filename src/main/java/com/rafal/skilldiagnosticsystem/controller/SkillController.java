@@ -47,7 +47,7 @@ public class SkillController {
     // wyniki po zrobieniu quizu
     @PostMapping("/userResults")
     public QuizResultDTO userAnswer(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
-        return quizService.checkAnswers(quizSubmissionRequest);
+        return quizService.submitQuiz(quizSubmissionRequest);
     }
 
 

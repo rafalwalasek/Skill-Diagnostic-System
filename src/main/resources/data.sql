@@ -11,7 +11,7 @@
 -- (3, 'Projektowanie aplikacji'),
 -- (4, 'Referring');
 
-INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
+-- INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
 -- ('', '', '', '', '', '', '', '');
 -- ('Jaka jest różnica między obiektem wartości (Value Object) a encją (Entity) w kontekście DDD?', 'VO jest niemutowalny (ang. immutable), a encja jest mutowalna (ang. mutable)', 'VO nie posiada identyfikatora a encja posiada', 'Cykl życia VO może zależeć od encji, ale cykl życia encji nie może zależeć od VO', 'Wszystkie odpowiedzi są poprawne', 'D', 'HARD', 'PROJEKTOWANIE_APLIKACJI'),
 -- ('Który typ danych w Javie służy do przechowywania liczb całkowitych?', 'double', 'int', 'char', 'boolean', 'B', 'EASY', 'JAVA'),
@@ -30,5 +30,5 @@ INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, c
 -- ('5', 'Zawodnik gospodarzy zagrał piłkę do własnego bramkarza, a miało to miejsce wewnatrz pola karnego przeciwników. Bramkarz ewidentnie chciał silnie kopnąć piłkę, lecz skiksował i w wyniku tego złapał piłkę do rąk. Podaj decyzję.', 'G', 'B', 'P', 'S', 'B', 'EASY'),
 -- ('5', 'Obrońca kopie piłkę do bramkarz (współpartnera). Po kopnięciu piłki, napastnik drużyny przeciwnej również goni piłkę, więc bramkarz wybiega poza pole karne i celowo dotyka ręką piłki. Jaka jest właściwa decyzja:', 'B ++', 'B +', 'B', 'P ++', 'C', 'MEDIUM'),
 -- ('5', 'Sędzia omyłkowo skrócił II połowę meczu o 5 minut, przerywając statyczna akcję gości w środku pola. Zdenerwowany kapitan gości dobiegł do sędziego krzycząc: "co ty kurwa robisz? Jaki koniec?!" i odepchnął sędziego rękami w klatkę piersiową. Co postanowi sędzia, wiedząc, że ten kapitan miał już żółtą kartkę?', 'udzieli kapitanowi gości drugiej żółtej kartki i w konsekwencji czerwonej, a gre wznowi rzutem wolnym pośrednim', 'udzieli kapitanowi gości czerwonej kartki, a grę wznowi rzutem sędziowskim', 'udzieli kapitanowi gości czerwonej kartki, a grę wznowi rzutem wolnym bezpośrednim', 'udzieli kapitanowi gości drugiej żółtej kartki i w konsekwencji czerwonej, a gre wznowi rzutem wolnym bezpośrednim', 'B', 'MEDIUM'),
-('5', 'Zawodnik zamienił się funkcją z bramkarzempodczas gry nie informując o tym sędziego. Decyzja?', 'P +', 'G', 'G + +', 'B', 'C', 'MEDIUM');
-('', '', '', '', '', '', '', '');
+-- ('5', 'Zawodnik zamienił się funkcją z bramkarzempodczas gry nie informując o tym sędziego. Decyzja?', 'P +', 'G', 'G + +', 'B', 'C', 'MEDIUM');
+-- ('', '', '', '', '', '', '', '');

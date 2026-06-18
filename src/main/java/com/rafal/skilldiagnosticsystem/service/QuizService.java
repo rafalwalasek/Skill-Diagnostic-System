@@ -3,7 +3,9 @@ package com.rafal.skilldiagnosticsystem.service;
 import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
 import com.rafal.skilldiagnosticsystem.model.Question;
+import com.rafal.skilldiagnosticsystem.model.QuizAttempt;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
+import com.rafal.skilldiagnosticsystem.repository.QuizAttemptRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,16 +15,19 @@ import java.util.Optional;
 @Service
 public class QuizService {
     private final QuestionRepository questionRepository;
+    private final QuizAttemptRepository quizAttemptRepository;
 
-    public QuizService(QuestionRepository questionRepository) {
+    public QuizService(QuestionRepository questionRepository,
+                       QuizAttemptRepository quizAttemptRepository) {
         this.questionRepository = questionRepository;
+        this.quizAttemptRepository = quizAttemptRepository;
     }
 
-    public QuizResultDTO checkAnswers(QuizSubmissionRequest quizSubmissionRequest) {
+    public QuizResultDTO submitQuiz(QuizSubmissionRequest quizSubmissionRequest) {
         Map<Long, String> userAnswerMap  = quizSubmissionRequest.getUserAnswerMap();
 
-        String subtopicName = "";
-        String difficulty = "";
+        Question firstQuestion = null;
+        LocalDate today = LocalDate.now();
 
         int score = 0;
         int totalQuestions = userAnswerMap.size();
@@ -31,21 +36,27 @@ public class QuizService {
             Optional<Question> questId = questionRepository.findById(questionId);
             Question question = questId.orElseThrow();
 
+            if (firstQuestion == null) {
+                firstQuestion = question;
+            }
+
             if (userAnswer.equals(question.getCorrectAnswer())) {
                 score++;
             }
-
-            subtopicName = question.getSubtopic().getSubtopicTitle();
-            difficulty = question.getDifficultyLevel().name();
         }
+        if (firstQuestion == null) {
+            throw new IllegalStateException("No questions found");
+        }
+
+        saveQuizAttempt(score, totalQuestions, today, firstQuestion);
 
         QuizResultDTO result = new QuizResultDTO();
         result.setScore(score);
         result.setTotalQuestions(totalQuestions);
         result.setPercentage(percentage(score, totalQuestions));
-        result.setDate(LocalDate.now().toString());
-        result.setSubtopicName(subtopicName);
-        result.setDifficulty(difficulty);
+        result.setDate(today.toString());
+        result.setSubtopicName(firstQuestion.getSubtopic().getSubtopicTitle());
+        result.setDifficulty(firstQuestion.getDifficultyLevel().name());
 
         return result;
     }
@@ -54,5 +65,16 @@ public class QuizService {
             return 0;
         }
         return (score * 100) / totalQuestions;
+    }
+    private void saveQuizAttempt(int score, int totalQuestions, LocalDate today, Question question) {
+        QuizAttempt attempt = new QuizAttempt();
+        attempt.setScore(score);
+        attempt.setTotalQuestions(totalQuestions);
+        attempt.setPercentage(percentage(score, totalQuestions));
+        attempt.setCompletedAt(today);
+        attempt.setDifficultyLevel(question.getDifficultyLevel());
+        attempt.setSubtopic(question.getSubtopic());
+
+        quizAttemptRepository.save(attempt);
     }
 }
