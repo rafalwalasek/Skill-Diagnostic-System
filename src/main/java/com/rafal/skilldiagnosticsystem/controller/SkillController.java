@@ -1,18 +1,16 @@
 package com.rafal.skilldiagnosticsystem.controller;
 
-//import com.rafal.skilldiagnosticsystem.dto.QuestionRequestDto;
-//import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
+import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
-import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.service.QuestionService;
+import com.rafal.skilldiagnosticsystem.service.QuizService;
 import com.rafal.skilldiagnosticsystem.service.TopicService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 //@CrossOrigin(origins = "http://localhost:5500")
 @RequestMapping("/quiz")
@@ -20,11 +18,14 @@ import java.util.Map;
 public class SkillController {
     private final TopicService topicService;
     private final QuestionService questionService;
+    private final QuizService quizService;
 
     public SkillController(TopicService topicService,
-                           QuestionService questionService) {
+                           QuestionService questionService,
+                           QuizService quizService) {
         this.topicService = topicService;
         this.questionService = questionService;
+        this.quizService = quizService;
     }
 
     // wyswietlanie tematow i podtematow z bazy danych
@@ -43,22 +44,14 @@ public class SkillController {
         return questionService.getRandomQuestions(subtopicId, difficulty);
     }
 
+    // wyniki po zrobieniu quizu
     @PostMapping("/userResults")
-    public void userAnswer(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
-        System.out.println(quizSubmissionRequest.getUserAnswerMap());
+    public QuizResultDTO userAnswer(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
+        return quizService.checkAnswers(quizSubmissionRequest);
     }
 
 
 
-
-
-
-
-    // dodawanie pytan do bazy
-//    @PostMapping("/questions")
-//    public QuestionResponseDto addQuestion(@RequestBody QuestionRequestDto dto) {
-//        return questionService.addQuestionToDB(dto);
-//    }
 
 
 //    @PostMapping("/submit")

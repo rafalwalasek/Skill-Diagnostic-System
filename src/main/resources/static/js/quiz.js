@@ -81,7 +81,6 @@ function saveAnswer(id, answer) {
     function submitQuiz() {
         // console.log(answers);
         // console.log(JSON.stringify(answers));
-
         fetch(`/quiz/userResults`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -89,22 +88,27 @@ function saveAnswer(id, answer) {
                 userAnswerMap: answers
             })
         })
+        .then(response => response.json())
+        .then(result => {
+            // console.log(score);
+            const quiz = document.getElementById("loadQuiz");
+            quiz.innerHTML = `
+                <div class="result-box">
+                    <h2>${result.subtopicName} ${result.difficulty}</h2>
 
-        // const userAnswerList = Object.keys(answers).map(qId => ({
-        //     questionId: parseInt(qId),
-        //     answer: answers[qId]
-        // }));
+                    <p>Score: ${result.score}/${result.totalQuestions}</p>
+                    <p>${result.percentage}%</p>
+                    <p>Date: ${result.date}</p>
 
-        //     fetch('/quiz/submit', {
-        //         method: 'POST',
-        //         headers: {'Content-Type': 'application/json'},
-        //         body: JSON.stringify({ userAnswerList })
-        //     })
-        //     .then(res => res.json())
-        //     .then(result => {
-        //         document.getElementById("result").innerText =
-        //             "Twój wynik: " + result;
-        //     });
-
-            // alert(JSON.stringify(userAnswerList, null, 2));
+                    <button onclick="goHome()">
+                        Zakończ
+                    </button>
+                </div>
+            `;
+        })
     }// END wyslanie odpowiedzi i koniec skilla
+        // powrot do strony głównej
+        function goHome() {
+            window.location.href = "index.html";
+        }
+        // END powrot do strony głównej
