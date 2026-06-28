@@ -2,6 +2,7 @@ package com.rafal.skilldiagnosticsystem.service;
 
 import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
+import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.model.QuizAttempt;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
@@ -60,6 +61,7 @@ public class QuizService {
 
         return result;
     }
+
     private int percentage(int score, int totalQuestions) {
         if (totalQuestions == 0) {
             return 0;
@@ -76,5 +78,41 @@ public class QuizService {
         attempt.setSubtopic(question.getSubtopic());
 
         quizAttemptRepository.save(attempt);
+
+        int masteryChange = calculateMasteryChange(question.getDifficultyLevel(), score);
+    }
+    private int calculateMasteryChange(DifficultyLevel difficulty, int score) {
+        return switch (difficulty) {
+            case EASY -> switch (score) {
+                case 3 -> 2;
+                case 2 -> 1;
+                case 1 -> 0;
+                case 0 -> -1;
+                default -> 0;
+            };
+            case MEDIUM -> switch (score) {
+                case 5 -> 3;
+                case 4 -> 2;
+                case 3 -> 1;
+                case 2 -> 0;
+                case 1 -> -1;
+                case 0 -> -2;
+                default -> 0;
+            };
+            case HARD -> switch (score) {
+                case 10 -> 5;
+                case 9 -> 4;
+                case 8 -> 3;
+                case 7 -> 2;
+                case 6 -> 1;
+                case 5 -> 0;
+                case 4 -> -1;
+                case 3 -> -2;
+                case 2 -> -3;
+                case 1 -> -4;
+                case 0 -> -5;
+                default -> 0;
+            };
+        };
     }
 }

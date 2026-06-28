@@ -201,11 +201,11 @@ body {
                             overflow:hidden;
                         }
                             .progress-bar {
-                                height:100%;
-                                width:10%;
-                                background:#22c55e;
-                                border-radius:20px;
-                                transition:.4s;
+                                height: 100%;
+                                width: 0%;
+                                background: #22c55e;
+                                border-radius: 20px;
+                                transition: width .5s ease;
                             }
                     .button-quiz {
                         width:100%;

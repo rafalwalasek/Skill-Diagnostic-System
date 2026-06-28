@@ -118,6 +118,8 @@ function renderTopics(topicsAndSubtopics) {
 
             if (existingDetails) {
                 existingDetails.remove();
+                details.classList.remove("active");
+                return;
             }
 
             const detailsBlock = document.createElement("div");
@@ -131,7 +133,7 @@ function renderTopics(topicsAndSubtopics) {
                     </div>
                     <div class="stat">
                         🔁 Attempts: 
-                        <span>0</span>
+                        <span class="attempt-count">0</span>
                     </div>
                     <div class="stat">
                         🏷 Status: 
@@ -141,9 +143,7 @@ function renderTopics(topicsAndSubtopics) {
                 <div class="master-progress">
                     <div class="master-header">
                         <span>📊 Mastery</span>
-                        <span class="master-value">
-                            10%
-                        </span>
+                        <span class="master-value">0%</span>
                     </div>
                     <div class="progress">
                         <div class="progress-bar"></div>
@@ -158,8 +158,11 @@ function renderTopics(topicsAndSubtopics) {
             `;
 
             details.appendChild(detailsBlock);
+            details.classList.add("active");
 
             getQuestionCount(detailsBlock, subtopicId, difficulty);
+            getAttemptCount(detailsBlock, subtopicId, difficulty);
+            updateMastery(detailsBlock, 70);
 
             const startQuiz = detailsBlock.querySelector(".button-quiz");
             startQuiz.addEventListener("click", () => {
@@ -180,8 +183,26 @@ function getQuestionCount(row, subtopicId, difficulty) {
     })
     .catch(error => console.error("Błąd:", error));
 }// END zliczanie pytan z konkretnego poziomu
-
+// zliczanie prob
+function getAttemptCount(detailsBlock, subtopicId, difficulty) {
+    fetch(`/quiz/attempts?subtopicId=${subtopicId}&difficulty=${difficulty}`)
+    .then(response => response.json())
+    .then(data => {
+        //console.log(data);
+        const attemptCount = detailsBlock.querySelector(".attempt-count");
+        attemptCount.textContent = data;
+    })
+    .catch(error => console.error("Błąd:", error));
+}// END zliczanie prob
+    
 // przejscie do diagnostyki
 function startSkillDiagnostic(subtopicId, difficulty) {
     window.location.href = `quiz.html?subtopicId=${subtopicId}&difficulty=${difficulty}`;
+}
+// progres paska
+function updateMastery(detailsBlock, value) {
+    const valueText = detailsBlock.querySelector(".master-value");
+    const progressBar = detailsBlock.querySelector(".progress-bar");
+    valueText.textContent = `${value}%`;
+    progressBar.style.width = `${value}%`;
 }

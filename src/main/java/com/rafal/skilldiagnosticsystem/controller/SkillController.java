@@ -5,7 +5,9 @@ import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
+import com.rafal.skilldiagnosticsystem.repository.QuizAttemptRepository;
 import com.rafal.skilldiagnosticsystem.service.QuestionService;
+import com.rafal.skilldiagnosticsystem.service.QuizAttemptService;
 import com.rafal.skilldiagnosticsystem.service.QuizService;
 import com.rafal.skilldiagnosticsystem.service.TopicService;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +21,15 @@ public class SkillController {
     private final TopicService topicService;
     private final QuestionService questionService;
     private final QuizService quizService;
+    private final QuizAttemptService quizAttemptService;
 
     public SkillController(TopicService topicService,
                            QuestionService questionService,
-                           QuizService quizService) {
+                           QuizService quizService, QuizAttemptService quizAttemptService) {
         this.topicService = topicService;
         this.questionService = questionService;
         this.quizService = quizService;
+        this.quizAttemptService = quizAttemptService;
     }
 
     // wyswietlanie tematow i podtematow z bazy danych
@@ -42,6 +46,11 @@ public class SkillController {
     @GetMapping("/questionsToDiagnostic")
     public List<QuestionResponseDto> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return questionService.getRandomQuestions(subtopicId, difficulty);
+    }
+    // zliczanie prob diagnostyki
+    @GetMapping("/attempts")
+    public long attempts(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
+        return quizAttemptService.getAttempts(subtopicId, difficulty);
     }
 
     // wyniki po zrobieniu quizu

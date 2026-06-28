@@ -23,4 +23,7 @@ public class Subtopic {
 
     @OneToMany(mappedBy = "subtopic")
     private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "subtopic")
+    private List<SkillProgress> skillProgress = new ArrayList<>();
 }

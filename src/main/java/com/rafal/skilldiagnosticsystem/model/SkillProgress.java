@@ -4,20 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @Entity
-public class QuizAttempt {
+public class SkillProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int score;
-    private int totalQuestions;
-    private int percentage;
-    private LocalDate completedAt;
+    private int mastery = 0;
 
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLevel;
