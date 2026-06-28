@@ -162,7 +162,7 @@ function renderTopics(topicsAndSubtopics) {
 
             getQuestionCount(detailsBlock, subtopicId, difficulty);
             getAttemptCount(detailsBlock, subtopicId, difficulty);
-            updateMastery(detailsBlock, 70);
+            getSkillProgress(detailsBlock, subtopicId, difficulty);
 
             const startQuiz = detailsBlock.querySelector(".button-quiz");
             startQuiz.addEventListener("click", () => {
@@ -194,15 +194,20 @@ function getAttemptCount(detailsBlock, subtopicId, difficulty) {
     })
     .catch(error => console.error("Błąd:", error));
 }// END zliczanie prob
+// progres paska
+function getSkillProgress(detailsBlock, subtopicId, difficulty) {
+    fetch(`/quiz/progress?subtopicId=${subtopicId}&difficulty=${difficulty}`)
+        .then(response => response.json())
+        .then(data => {
+            const value = detailsBlock.querySelector(".master-value");
+            const bar = detailsBlock.querySelector(".progress-bar");
+            value.textContent = `${data.mastery}%`;
+            bar.style.width = `${data.mastery}%`;
+        })
+        .catch(error => console.error(error));
+}
     
 // przejscie do diagnostyki
 function startSkillDiagnostic(subtopicId, difficulty) {
     window.location.href = `quiz.html?subtopicId=${subtopicId}&difficulty=${difficulty}`;
-}
-// progres paska
-function updateMastery(detailsBlock, value) {
-    const valueText = detailsBlock.querySelector(".master-value");
-    const progressBar = detailsBlock.querySelector(".progress-bar");
-    valueText.textContent = `${value}%`;
-    progressBar.style.width = `${value}%`;
 }

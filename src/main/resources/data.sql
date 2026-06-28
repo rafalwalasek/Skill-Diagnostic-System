@@ -11,7 +11,7 @@
 -- (3, 'Projektowanie aplikacji'),
 -- (4, 'Referring');
 
--- INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
+INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
 -- ('', '', '', '', '', '', '', '');
 -- ('Jaka jest różnica między obiektem wartości (Value Object) a encją (Entity) w kontekście DDD?', 'VO jest niemutowalny (ang. immutable), a encja jest mutowalna (ang. mutable)', 'VO nie posiada identyfikatora a encja posiada', 'Cykl życia VO może zależeć od encji, ale cykl życia encji nie może zależeć od VO', 'Wszystkie odpowiedzi są poprawne', 'D', 'HARD', 'PROJEKTOWANIE_APLIKACJI'),
 -- ('Który typ danych w Javie służy do przechowywania liczb całkowitych?', 'double', 'int', 'char', 'boolean', 'B', 'EASY', 'JAVA'),
@@ -20,6 +20,11 @@
 -- ('Co oznacza słowo kluczowe final dla zmiennej w Javie?', 'Zmienna może zmieniać wartość tylko raz po każdej metodzie.', 'Zmienna nie może zostać ponownie przypisana po inicjalizacji.', 'Zmienna jest dostępna tylko w klasie.', 'Zmienna jest automatycznie statyczna.', 'B', 'EASY', 'JAVA'),
 -- ('Która kolekcja w Javie przechowuje unikalne elementy?', 'List', 'ArrayList', 'Set', 'LinkedList', 'C', 'EASY', 'JAVA'),
 -- ('Do czego służy adnotacja @Override?', 'Do tworzenia nowej klasy.', 'Do oznaczenia, że metoda nadpisuje metodę z klasy nadrzędnej lub interfejsu.', 'Do ukrywania metod przed innymi klasami.', 'Do automatycznego tworzenia getterów i setterów.', 'B', 'EASY', 'JAVA'),
+
+-- === JAVA ===
+(1, 'Która metoda jest punktem wejścia do programu Java?', 'start()', 'main()', 'run()', 'init()', 'B', 'EASY'),
+(1, 'Który typ danych przechowuje liczbę całkowitą w Javie?', 'String', 'boolean', 'int', 'double', 'C', 'EASY'),
+(1, 'Jak tworzymy obiekt klasy w Javie?', 'create ClassName()', 'new ClassName()', 'object ClassName()', 'make ClassName()', 'B', 'EASY');
 
 -- === REFERRING ===
 -- (5, 'Napastnik wcześniej już napomniany w zawodach nadmiernie fetuje zdobycie bramki (zakrywa twarz maską) po tym, jak udało mu się wyrównać wynik meczu. Jaką decyzje podejmie sędzia jeżeli uzna on wskazanie swojego asystenta, na podstawie którego bramka zostanie nieuznana z tytułu wcześniej zaistniałego spalonego?', '+', 'P', 'P + ++', 'S', 'C', 'MEDIUM'),

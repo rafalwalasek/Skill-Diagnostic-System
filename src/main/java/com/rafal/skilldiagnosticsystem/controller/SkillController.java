@@ -1,15 +1,8 @@
 package com.rafal.skilldiagnosticsystem.controller;
 
-import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
-import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
-import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
-import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
+import com.rafal.skilldiagnosticsystem.dto.*;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
-import com.rafal.skilldiagnosticsystem.repository.QuizAttemptRepository;
-import com.rafal.skilldiagnosticsystem.service.QuestionService;
-import com.rafal.skilldiagnosticsystem.service.QuizAttemptService;
-import com.rafal.skilldiagnosticsystem.service.QuizService;
-import com.rafal.skilldiagnosticsystem.service.TopicService;
+import com.rafal.skilldiagnosticsystem.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +15,17 @@ public class SkillController {
     private final QuestionService questionService;
     private final QuizService quizService;
     private final QuizAttemptService quizAttemptService;
+    private final SkillProgressService skillProgressService;
 
     public SkillController(TopicService topicService,
                            QuestionService questionService,
-                           QuizService quizService, QuizAttemptService quizAttemptService) {
+                           QuizService quizService, QuizAttemptService quizAttemptService,
+                           SkillProgressService skillProgressService) {
         this.topicService = topicService;
         this.questionService = questionService;
         this.quizService = quizService;
         this.quizAttemptService = quizAttemptService;
+        this.skillProgressService = skillProgressService;
     }
 
     // wyswietlanie tematow i podtematow z bazy danych
@@ -51,6 +47,11 @@ public class SkillController {
     @GetMapping("/attempts")
     public long attempts(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return quizAttemptService.getAttempts(subtopicId, difficulty);
+    }
+    // zwiekszanie pola mastery
+    @GetMapping("/progress")
+    public SkillProgressDTO getProgress(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
+        return skillProgressService.getProgress(subtopicId, difficulty);
     }
 
     // wyniki po zrobieniu quizu
