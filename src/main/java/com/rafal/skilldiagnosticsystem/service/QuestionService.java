@@ -27,7 +27,16 @@ public class QuestionService {
         List<Question> questions = questionRepository.findBySubtopicIdAndDifficultyLevel(subtopicId, difficulty);
         Collections.shuffle(questions);
 
-        return mapQuestionsToDto(questions.subList(0, min(3, questions.size())));
+        int limit;
+        if (difficulty == DifficultyLevel.EASY) {
+            limit = 3;
+        } else if (difficulty == DifficultyLevel.MEDIUM) {
+            limit = 5;
+        } else {
+            limit = 10;
+        }
+
+        return mapQuestionsToDto(questions.subList(0, min(limit, questions.size())));
     }
     private List<QuestionResponseDto> mapQuestionsToDto(List<Question> questions) {
         List<QuestionResponseDto> questionResponseDtoList = new ArrayList<>();

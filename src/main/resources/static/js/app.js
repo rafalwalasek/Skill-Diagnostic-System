@@ -38,10 +38,7 @@ document.addEventListener("click", (e) => {
 
 // topics
 const topicIcons = {
-    "Java": "☕",
-    "Bazy danych": "🗄️",
-    "Projektowanie aplikacji": "🏗️",
-    "Referring": "⚽"
+    "Java": "☕"
 };
 const topicsSection = document.getElementById("topicsSection");
 function renderTopics(topicsAndSubtopics) {
@@ -69,44 +66,46 @@ function renderTopics(topicsAndSubtopics) {
 
         //console.log(id);
         subtopicsSection.innerHTML = `
-            <h3>📌 Subtopics: ${topic.topicTitle}</h3>
-            <div class="subtopic-list">
+            <div class="subtopics-box">
+                <h3>📌 Subtopics: ${topic.topicTitle}</h3>
+                <div class="subtopic-list">
 
-                ${topic.subtopicsDTOS.map(st => `
+                    ${topic.subtopicsDTOS.map(st => `
 
-                    <div class="subtopic-container">
+                        <div class="subtopic-container">
 
-                        <div class="subtopic-item-row">
-                            <div class="subtopic-title">
-                                ${st.subtopicTitle}
+                            <div class="subtopic-item-row">
+                                <div class="subtopic-title">
+                                    ${st.subtopicTitle}
+                                </div>
+                                <div class="difficulty-buttons">
+                                    <button 
+                                        class="diff-btn easy" 
+                                        data-subtopic-id="${st.id}" 
+                                        data-diff="EASY">
+                                        łatwy
+                                    </button>
+                                    <button 
+                                        class="diff-btn medium" 
+                                        data-subtopic-id="${st.id}" 
+                                        data-diff="MEDIUM">
+                                        średni
+                                    </button>
+                                    <button 
+                                        class="diff-btn hard" 
+                                        data-subtopic-id="${st.id}" 
+                                        data-diff="HARD">
+                                        trudny
+                                    </button>        
+                                </div>
                             </div>
-                            <div class="difficulty-buttons">
-                                <button 
-                                    class="diff-btn easy" 
-                                    data-subtopic-id="${st.id}" 
-                                    data-diff="EASY">
-                                    łatwy
-                                </button>
-                                <button 
-                                    class="diff-btn medium" 
-                                    data-subtopic-id="${st.id}" 
-                                    data-diff="MEDIUM">
-                                    średni
-                                </button>
-                                <button 
-                                    class="diff-btn hard" 
-                                    data-subtopic-id="${st.id}" 
-                                    data-diff="HARD">
-                                    trudny
-                                </button>        
-                            </div>
+                            <div class="subtopic-details"></div>
+
                         </div>
-                        <div class="subtopic-details"></div>
 
-                    </div>
+                    `).join("")}
 
-                `).join("")}
-
+                </div>
             </div>
         `;
     }// END Subtopics
@@ -137,7 +136,7 @@ function renderTopics(topicsAndSubtopics) {
                     </div>
                     <div class="stat">
                         🏷 Status: 
-                        <span>Not progress</span>
+                        <span class="status">Not started</span>
                     </div>
                 </div>
                 <div class="master-progress">
@@ -194,18 +193,28 @@ function getAttemptCount(detailsBlock, subtopicId, difficulty) {
     })
     .catch(error => console.error("Błąd:", error));
 }// END zliczanie prob
-// progres paska
+// progres paska i postepu
 function getSkillProgress(detailsBlock, subtopicId, difficulty) {
     fetch(`/quiz/progress?subtopicId=${subtopicId}&difficulty=${difficulty}`)
         .then(response => response.json())
         .then(data => {
             const value = detailsBlock.querySelector(".master-value");
             const bar = detailsBlock.querySelector(".progress-bar");
+            const status = detailsBlock.querySelector(".status");
+
             value.textContent = `${data.mastery}%`;
             bar.style.width = `${data.mastery}%`;
+
+            const statusLabels = {
+                NOT_STARTED: "Not started",
+                IN_PROGRESS: "In progress",
+                COMPLETED: "Completed"
+            };
+            status.textContent = statusLabels[data.status];
+            status.className = `status ${data.status.toLowerCase()}`;
         })
         .catch(error => console.error(error));
-}
+}// END progres paska i postepu
     
 // przejscie do diagnostyki
 function startSkillDiagnostic(subtopicId, difficulty) {

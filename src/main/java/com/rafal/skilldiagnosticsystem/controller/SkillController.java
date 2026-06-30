@@ -48,7 +48,7 @@ public class SkillController {
     public long attempts(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return quizAttemptService.getAttempts(subtopicId, difficulty);
     }
-    // zwiekszanie pola mastery
+    // zwiekszanie pola mastery i sledzenie postepu
     @GetMapping("/progress")
     public SkillProgressDTO getProgress(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return skillProgressService.getProgress(subtopicId, difficulty);
@@ -60,19 +60,6 @@ public class SkillController {
         return quizService.submitQuiz(quizSubmissionRequest);
     }
 
-
-
-
-
-//    @PostMapping("/submit")
-//    public double submitAnswers(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
-//        List<Question> questions = questionRepository.findAll();
-//
-//        double result = skillAssessmentService.checkPerformance(quizSubmissionRequest, questions);
-//        fileManagerService.writeToFile(List.of(result));
-//
-//        return result;
-//    }
 //    @GetMapping("/results")
 //    public List<Double> readFromFile() {
 //        return fileManagerService.readFromFile();
