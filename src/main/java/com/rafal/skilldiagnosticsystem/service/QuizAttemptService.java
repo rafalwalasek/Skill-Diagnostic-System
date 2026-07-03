@@ -13,4 +13,7 @@ public class QuizAttemptService {
     public long getAttempts(Long subtopicId, DifficultyLevel difficultyLevel) {
         return quizAttemptRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, difficultyLevel);
     }
+    public long attempts(String category) {
+        return quizAttemptRepository.countBySubtopic_Topic_TopicTitle(category);
+    }
 }

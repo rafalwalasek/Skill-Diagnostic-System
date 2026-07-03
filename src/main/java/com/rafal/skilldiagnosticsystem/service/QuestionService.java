@@ -20,6 +20,12 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
+    public Long allQuestions() {
+        return questionRepository.count();
+    }
+    public Long categoryQuestions(String category) {
+        return questionRepository.countBySubtopic_Topic_TopicTitle(category);
+    }
     public Long questionCount(Long subtopicId, DifficultyLevel diff) {
         return questionRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, diff);
     }

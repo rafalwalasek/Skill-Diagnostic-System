@@ -3,12 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <title>Skill diagnostic system</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
 </head>
 <body>
-    <div class="container">
+    <!-- <div class="container"> -->
+    <div class="app-layout">
 
-        <!-- HEADER -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Skill Diagnostic System logo" class="logo-image">
+                <h2>Skill Diagnostic System</h2>
+                <p class="subtitle">
+                    Track and improve your skills
+                </p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-page="dashboard">
+                            <span class="icon">🏠</span>
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="questions">
+                            <span class="icon">❓</span>
+                            <span class="menu-text">Questions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="skills">
+                            <span class="icon">💻</span>
+                            <span class="menu-text">Skills</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-panel">
+                <span class="user-icon">👤</span>
+                <div class="user-info">
+                    <strong>Developer</strong>
+                    <small>Junior Java</small>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="dashboard-header-block">
+                <header class="top-bar">
+                    <h1>Dashboard</h1>
+                    <p>Explore your categories and track your progress 👋</p>
+                </header>
+
+                <section class="stats">
+                    <div class="card">
+                        <span>📘</span>
+                        <div>
+                            <h3>All questions</h3>
+                            <p id="allQuestionCount">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <span>📂</span>
+                        <div class="category-card">
+                            <div class="category-header">
+                                <h3>Questions</h3>
+                                <h3 id="categoryName"></h3>
+                            </div>
+                            <div>
+                                <p id="categoryQuestion">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <span>🔁</span>
+                        <div>
+                            <h3>Attempts</h3>
+                            <p id="attempts">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <span>📊</span>
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>Mastery</h3>
+                                <h3>0%</h3>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="progress-section" style="display: none;">
+                <div class="image-map">
+                    <img src="assets/images/blue_tree.png" alt="Skill Diagnostic" class="dashboard-image">
+
+                    <button class="category-btn java" data-sub="Java">
+                        Java
+                    </button>
+                    <button class="category-btn database" data-sub="Bazy danych">
+                        Bazy danych
+                    </button>
+                </div>
+            </section>
+            <section class="page" id="questions-page" style="display: block;">
+                <div class="questions-container">
+                    <h2>Questions</h2>
+
+                    <table class="questions-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Question</th>
+                                <th>Subtopic</th>
+                                <th>Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody id="questionsBody">
+                            <!-- JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="page" id="skills-page" style="display: none;">
+                <h2>Skills</h2>
+            </section>
+
+        </main>
+
+        <!-- HEADER --
         <div class="header">
             <h1>Skill Diagnostic System</h1>
             <div class="subtitle">Track and improve your skills</div>
@@ -22,7 +154,7 @@
             </div>
         </div>
 
-        <!-- MAIN INTERACTION -->
+        <!-- MAIN INTERACTION --
         <div class="card">
             <section id="topicsSection"></section>
             <section id="subtopicsSection"></section>
@@ -38,6 +170,7 @@
         <!-- </div> -->
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!-- <script src="js/app.js"></script> -->
 </body>
 </html>

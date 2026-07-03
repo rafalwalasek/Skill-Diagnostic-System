@@ -28,6 +28,23 @@ public class SkillController {
         this.skillProgressService = skillProgressService;
     }
 
+    // wszystkie pytania w bazie
+    @GetMapping("/allQuestionCount")
+    public Long allQuestion() {
+        return questionService.allQuestions();
+    }
+    // zliczanie pytan konkretnej kategorii
+    @GetMapping("/categoryQuestionCount")
+    public Long categoryQuestion(@RequestParam String category) {
+        return questionService.categoryQuestions(category);
+    }
+    // zliczanie podejsc kategorii
+    @GetMapping("/attemptsCount")
+    public long attempts(@RequestParam String category) {
+        return quizAttemptService.attempts(category);
+    }
+//===================================================================
+
     // wyswietlanie tematow i podtematow z bazy danych
     @GetMapping("/topics")
     public List<TopicDTO> allTitleTopic() {
