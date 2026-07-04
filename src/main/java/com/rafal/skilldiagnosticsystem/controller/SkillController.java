@@ -44,31 +44,21 @@ public class SkillController {
         return quizAttemptService.attempts(category);
     }
 //===================================================================
-
-    // wyswietlanie tematow i podtematow z bazy danych
+    // wyswietlenie tematow i podtematow z bazy
     @GetMapping("/topics")
     public List<TopicDTO> allTitleTopic() {
         return topicService.getAllTopicsAsDTO();
-    }
-    // zliczanie pytan
-    @GetMapping("/questionCount")
-    public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {
-        return questionService.questionCount(subtopicId, diff);
     }
     // wyswietlenie konkretnych pytan do diagnostyki
     @GetMapping("/questionsToDiagnostic")
     public List<QuestionResponseDto> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return questionService.getRandomQuestions(subtopicId, difficulty);
     }
+//==============================================================================
     // zliczanie prob diagnostyki
     @GetMapping("/attempts")
     public long attempts(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
         return quizAttemptService.getAttempts(subtopicId, difficulty);
-    }
-    // zwiekszanie pola mastery i sledzenie postepu
-    @GetMapping("/progress")
-    public SkillProgressDTO getProgress(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
-        return skillProgressService.getProgress(subtopicId, difficulty);
     }
 
     // wyniki po zrobieniu quizu
@@ -76,6 +66,25 @@ public class SkillController {
     public QuizResultDTO userAnswer(@RequestBody QuizSubmissionRequest quizSubmissionRequest) {
         return quizService.submitQuiz(quizSubmissionRequest);
     }
+
+
+
+
+
+
+
+    // zliczanie pytan
+    @GetMapping("/questionCount")
+    public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {
+        return questionService.questionCount(subtopicId, diff);
+    }
+    // zwiekszanie pola mastery i sledzenie postepu
+    @GetMapping("/progress")
+    public SkillProgressDTO getProgress(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
+        return skillProgressService.getProgress(subtopicId, difficulty);
+    }
+
+
 
 //    @GetMapping("/results")
 //    public List<Double> readFromFile() {

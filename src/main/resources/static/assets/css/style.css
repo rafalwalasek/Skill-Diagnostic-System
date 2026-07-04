@@ -161,121 +161,330 @@
                     font-weight: bold;
                     margin: 5px 0 0;
                 }/* END status-section */
-    /* progress-section */
-    .progress-section {
-        background: #0f172a;
-        display: flex;
-        justify-content: center;
+                /* progress-bar */
+                .progress-card,
+                .category-card {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .progress-card {
+                    gap: 20px;
+                }
+                    .progress-header,
+                    .category-header {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .progress {
+                        width: 100%;
+                        height: 12px;
+                        background: #0f172a;
+                        border-radius: 999px;
+                        overflow: hidden;
+                    }
+                        .progress-bar {
+                            height: 100%;
+                            width: 0%;
+                            border-radius: 999px;
+                            background: linear-gradient(90deg,#6366f1,#38bdf8);
+                        }/* progress-bar */
+/* ============================================================================================ */
+    /* zmienne sekcje */
+    #views .page {
+        display: none;
     }
-        .image-map {
-            position: relative;
-            width: 100%;
+    #views .page.active {
+        display: block;
+    }/* END zmienne sekcje */
+        /* Progress */
+        #progress {
+            background: #0f172a;
             display: flex;
             justify-content: center;
         }
-            .dashboard-image {
-                max-width: 100%;
-                height: 687px;
-                object-fit: cover;
-            }
-            .category-btn {
-                position: absolute;
-                padding: 10px 18px;
-                border: none;
-                border-radius: 10px;
-                background: #2563eb;
-                color: white;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.3s;
-                font-size: 16px;
-                letter-spacing: 1px;
-            }
-                .category-btn:hover {
-                    transform: scale(1.05);
-                    background: #1d4ed8;
-                }
-            /* pozycje przycisków */
-            .java {
-                top: 20%;
-                left: 30%;
-            }
-            .database {
-                top: 40%;
-                left: 25%;  
-            }/* pozycje przycisków */
-            /* progress-bar */
-            .progress-card,
-            .category-card {
+            .image-map {
+                position: relative;
                 width: 100%;
                 display: flex;
-                flex-direction: column;
+                justify-content: center;
             }
-            .progress-card {
-                gap: 20px;
-            }
-                .progress-header,
-                .category-header {
-                    display: flex;
-                    justify-content: space-between;
+                .dashboard-image {
+                    max-width: 100%;
+                    height: 687px;
+                    object-fit: cover;
                 }
-                .progress {
-                    width: 100%;
-                    height: 12px;
-                    background: #0f172a;
-                    border-radius: 999px;
-                    overflow: hidden;
-                }
-                    .progress-bar {
-                        height: 100%;
-                        width: 0%;
-                        border-radius: 999px;
-                        background: linear-gradient(90deg,#6366f1,#38bdf8);
-                    }
-            /* progress-bar */
-    /* END progress-section */
-    /* Questions */
-    .page {
-        padding: 0 30px;
-    }
-        .questions-container {
-            background: white;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            overflow-x: auto;
-        }
-            .questions-container h2 {
-                margin-bottom: 20px;
-                color: #1e293b;
-                font-size: 24px;
-            }
-            .questions-table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-                .questions-table thead {
-                    background: #1e293b;
+                .category-btn {
+                    position: absolute;
+                    padding: 10px 18px;
+                    border: none;
+                    border-radius: 10px;
+                    background: #2563eb;
                     color: white;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    font-size: 16px;
+                    letter-spacing: 1px;
                 }
-                    .questions-table th {
-                        padding: 14px;
-                        text-align: left;
-                        font-weight: 600;
+                    .category-btn:hover {
+                        transform: scale(1.05);
+                        background: #1d4ed8;
                     }
-                        .questions-table td {
+                /* pozycje przycisków */
+                .java {
+                    top: 20%;
+                    left: 30%;
+                }
+                .database {
+                    top: 40%;
+                    left: 25%;  
+                }/* pozycje przycisków */
+        /* END Progress */
+        /* Questions */
+        #questions {
+            margin: 0 30px;
+        }
+            .questions-container {
+                background: white;
+                padding: 25px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                overflow-x: auto;
+            }
+                .questions-container h2 {
+                    margin-bottom: 20px;
+                    color: #1e293b;
+                    font-size: 24px;
+                }
+                .questions-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                    .questions-table thead {
+                        background: #1e293b;
+                        color: white;
+                    }
+                        .questions-table th {
                             padding: 14px;
-                            border-bottom: 1px solid #e2e8f0;
-                            color: #334155;
+                            text-align: left;
+                            font-weight: 600;
                         }
-                .questions-table tbody tr {
-                    transition: background 0.2s ease;
+                            .questions-table td {
+                                padding: 14px;
+                                border-bottom: 1px solid #e2e8f0;
+                                color: #334155;
+                            }
+                    .questions-table tbody tr {
+                        transition: background 0.2s ease;
+                    }
+                        .questions-table tbody tr:hover {
+                            background: #f8fafc;
+                        }
+                        .questions-table tbody tr:last-child td {
+                            border-bottom: none;
+                        }
+        /* END Questions */
+        /* Skills */
+        #skills {
+            margin: 0 30px;
+        }
+            .skills-page {
+                padding: 0 30px;
+            }
+                .skills-container {
+                    background: white;
+                    padding: 25px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                    height: 665px;
                 }
-                    .questions-table tbody tr:hover {
-                        background: #f8fafc;
+                    .skills-layout {
+                        display: flex;
+                        margin-top: 10px;
+                        height: 580px;
                     }
-                    .questions-table tbody tr:last-child td {
-                        border-bottom: none;
-                    }
-    /* END Questions */
+                        /* LEWA */
+                        .skills-left {
+                            width: 350px;
+                            padding: 20px;
+                            background: #ffffff;
+                            border-right: 1px solid #eaeaea;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+                            height: 100%;
+                        }
+                            /* skill box */
+                            .skill-box {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 6px;
+                            }
+                                .skill-box h3 {
+                                    font-size: 12px;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.8px;
+                                    color: #777;
+                                    margin: 0;
+                                }
+                                .skill-box select {
+                                    padding: 10px;
+                                    border: 1px solid #ddd;
+                                    background: #fafafa;
+                                    font-size: 14px;
+                                    outline: none;
+                                    transition: all 0.2s ease;
+                                    cursor: pointer;
+                                }
+                                .skill-box select:focus {
+                                    border-color: #4a90e2;
+                                    background: #fff;
+                                    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+                                }
+                            #subtopic-box,
+                            #difficulty-box {
+                                margin-top: 10px;
+                                display: none;
+                                /* animacja wejścia */
+                                transform: translateY(-6px);
+                                transition: all 0.25s ease;
+                            }
+                                #subtopic-box.visible,
+                                #difficulty-box.visible {
+                                    display: block;
+                                    transform: translateY(0);
+                                }
+                                #subtopic-select,
+                                #difficulty-select {
+                                    margin-top: 5px;
+                                    width: 100%;
+                                    box-sizing: border-box;
+                                }
+                            /* button */
+                            #start-quiz-btn {
+                                margin-top: auto;
+                                padding: 12px;
+                                border: none;
+                                background: #4a90e2;
+                                color: white;
+                                font-size: 14px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                            }
+                            #start-quiz-btn:disabled {
+                                background: #c9c9c9;
+                                cursor: not-allowed;
+                                opacity: 0.7;
+                            }
+                                #start-quiz-btn:hover {
+                                    background: #3b7bd1;
+                                    transform: translateY(-1px);
+                                }
+                            #start-quiz-btn:active {
+                                transform: scale(0.98);
+                            }
+                        /* PRAWA */
+                        .skills-right {
+                            flex: 1;
+                        }
+                            /* quiz placeholder */
+                            .quiz-placeholder {
+                                color: #888;
+                                font-size: 14px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100%;
+                            }
+        /* END Skills */
 /* END main-content */
 /* -------------------------------------------------------------------- */
+/* Quiz skill */
+.question-box {
+    margin: 0 0 0 20px;
+    padding: 20px;
+    background: #1f2937;
+    color: #f3f4f6;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid #374151;
+}
+    .question-box h3 {
+        margin: 0 0 20px;
+        font-size: 22px;
+        color: #60a5fa;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 12px;
+    }
+    .question-box p {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    .answers {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+        .answers label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 20px;
+            background: #334155;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all .2s ease;
+            font-size: 17px;
+        }
+            .answers label:hover {
+                background: #475569;
+                border-color: #3b82f6;
+            }
+        .answers input[type="radio"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .answers input[type="radio"]:checked {
+            accent-color: #3b82f6;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+        }
+            .navigation button,
+            .submit-btn {
+                padding: 12px 28px;
+                border: none;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: .2s;
+            }
+            .navigation button:first-child {
+                background: #64748b;
+                color: white;
+            }
+                .navigation button:first-child:hover {
+                    background: #475569;
+                }
+            .navigation button:last-child {
+                background: #2563eb;
+                color: white;
+            }
+                .navigation button:last-child:hover {
+                    background: #1d4ed8;
+                }
+            .submit-btn {
+                margin-top: 20px;
+                width: 100%;
+                background: #16a34a;
+                color: white;
+            }
+                .submit-btn:hover {
+                    background: #15803d;
+                }
+/* END Quiz skill */
+/* rezult */
+
+/* END rezult */

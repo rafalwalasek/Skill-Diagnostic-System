@@ -26,9 +26,9 @@
             <nav class="menu">
                 <ul>
                     <li class="active">
-                        <a href="#" data-page="dashboard">
+                        <a href="#" data-page="progress">
                             <span class="icon">🏠</span>
-                            <span class="menu-text">Dashboard</span>
+                            <span class="menu-text">Progress</span>
                         </a>
                     </li>
                     <li>
@@ -55,7 +55,6 @@
         </aside>
 
         <main class="main-content">
-
             <section class="dashboard-header-block">
                 <header class="top-bar">
                     <h1>Dashboard</h1>
@@ -103,74 +102,87 @@
                     </div>
                 </section>
             </section>
-            <section class="progress-section" style="display: none;">
-                <div class="image-map">
-                    <img src="assets/images/blue_tree.png" alt="Skill Diagnostic" class="dashboard-image">
 
-                    <button class="category-btn java" data-sub="Java">
-                        Java
-                    </button>
-                    <button class="category-btn database" data-sub="Bazy danych">
-                        Bazy danych
-                    </button>
-                </div>
-            </section>
-            <section class="page" id="questions-page" style="display: block;">
-                <div class="questions-container">
-                    <h2>Questions</h2>
+            <!-- zmienne sekcje -->
+            <div id="views">
+                <section class="page" id="progress">
+                    <div class="image-map">
+                        <img src="assets/images/blue_tree.png" alt="Skill Diagnostic" class="dashboard-image">
 
-                    <table class="questions-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Question</th>
-                                <th>Subtopic</th>
-                                <th>Difficulty</th>
-                            </tr>
-                        </thead>
-                        <tbody id="questionsBody">
-                            <!-- JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <section class="page" id="skills-page" style="display: none;">
-                <h2>Skills</h2>
-            </section>
+                        <button class="category-btn java" data-sub="Java">
+                            Java
+                        </button>
+                        <button class="category-btn database" data-sub="Bazy danych">
+                            Bazy danych
+                        </button>
+                    </div>
+                </section>
+                <section class="page" id="questions">
+                    <div class="questions-container">
+                        <h2>Questions</h2>
 
+                        <table class="questions-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>Subtopic</th>
+                                    <th>Difficulty</th>
+                                </tr>
+                            </thead>
+                            <tbody id="questionsBody">
+                                <!-- JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="page" id="skills">
+                    <div class="skills-container">
+                        <h2>Skills</h2>
+
+                        <div class="skills-layout">
+                            <!-- LEWA STRONA -->
+                            <div class="skills-left">
+                                <div class="skill-box">
+                                    <h3>Category</h3>
+                                    <select id="topic-select"></select>
+                                </div>
+
+                                <div class="skill-box" id="subtopic-box">
+                                    <h3>Subtopic</h3>
+                                    <select id="subtopic-select"></select>
+                                </div>
+
+                                <div class="skill-box" id="difficulty-box">
+                                    <h3>Difficulty</h3>
+                                    <select id="difficulty-select">
+                                        <option value="">Select difficulty</option>
+                                        <option value="EASY">Easy</option>
+                                        <option value="MEDIUM">Medium</option>
+                                        <option value="HARD">Hard</option>
+                                    </select>
+                                </div>
+
+                                <button id="start-quiz-btn" disabled>Start</button>
+                            </div>
+
+                            <!-- PRAWA STRONA -->
+                            <div class="skills-right" id="quiz-panel">
+                                <div class="quiz-placeholder">
+                                    <h3>Select topic and click Start</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div><!-- END zmienne sekcje -->
         </main>
-
-        <!-- HEADER --
-        <div class="header">
-            <h1>Skill Diagnostic System</h1>
-            <div class="subtitle">Track and improve your skills</div>
-        </div>
-
-        <!-- 1. PROGRESS --
-        <div class="card">
-            <h2>📊 Your Progress</h2>
-            <div id="progress">
-                <div class="muted">Loading progress...</div>
-            </div>
-        </div>
-
-        <!-- MAIN INTERACTION --
-        <div class="card">
-            <section id="topicsSection"></section>
-            <section id="subtopicsSection"></section>
-        </div>
-        <!-- END MAIN INTERACTION -->
-
-        <!-- 3. RECENT RESULTS --
-        <div class="card">
-            <h2>📈 Recent Results</h2>
-            <div id="recent">
-                <div class="muted">Loading recent results...</div>
-            </div>
-        <!-- </div> -->
+        
     </div>
 
-    <script src="assets/js/app.js"></script>
-    <!-- <script src="js/app.js"></script> -->
+    <script src="assets/js/loadTopicsAndSubtopics.js"></script>
+    <script src="assets/js/sectionSwitch.js"></script>
+    <script src="assets/js/dashboardData.js"></script>
+    <script src="assets/js/quiz.js"></script>
 </body>
 </html>

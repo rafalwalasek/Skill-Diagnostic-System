@@ -8,21 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
         categoryQuestions(categoryBtn.dataset.sub);
         attemptsCount(categoryBtn.dataset.sub);
     });
-
-    document.addEventListener("click", (e) => {
-        const menu = e.target.closest("a[data-page]");
-        if (!menu) return;
-
-        e.preventDefault();
-
-        const page = menu.dataset.page;
-        showPage(page);
-    });
-
-    showPage("dashboard");
 });
-//================================================================================
-// all questions:
+// all questions
 function allQuestions() {
     fetch(`/quiz/allQuestionCount`)
     .then(response => response.json())
@@ -55,26 +42,3 @@ function attemptsCount(category) {
     })
     .catch(error => console.error("Błąd:", error));
 }
-//=====================================================================================
-// przelaczanie miedzy sekcjami (menu)
-function showPage(page) {
-    // 1. ukryj wszystkie sekcje
-    document.querySelectorAll("section[data-page]").forEach(section => {
-        section.style.display = "none";
-    });
-    // 2. pokaż wybraną
-    const activeSection = document.querySelector(`section[data-page="${page}"]`);
-    if (activeSection) {
-        activeSection.style.display = "block";
-    }
-    // 3. active w menu
-    document.querySelectorAll("a[data-page]").forEach(link => {
-        link.parentElement.classList.remove("active");
-    });
-
-    const activeLink = document.querySelector(`a[data-page="${page}"]`);
-    if (activeLink) {
-        activeLink.parentElement.classList.add("active");
-    }
-}
-//==================================================================================
