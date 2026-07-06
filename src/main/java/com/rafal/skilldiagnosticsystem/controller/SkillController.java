@@ -67,12 +67,6 @@ public class SkillController {
         return quizService.submitQuiz(quizSubmissionRequest);
     }
 
-
-
-
-
-
-
     // zliczanie pytan
     @GetMapping("/questionCount")
     public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {

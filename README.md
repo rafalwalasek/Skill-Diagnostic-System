@@ -39,7 +39,6 @@ Projekt został zbudowany w oparciu o architekturę warstwową:
 - Repository – komunikacja z bazą danych
 - Entity – modele danych
 - DTO – obiekty transferowe
-- Exception – obsługa błędów
 
 ## Uruchomienie projektu
 
@@ -61,11 +60,31 @@ Projekt został zbudowany w oparciu o architekturę warstwową:
 
 ## Endpointy API
 
+### Statystyki pytań i kategorii
+
 | Metoda | Endpoint | Opis |
 |--------|----------|------|
-| GET | /quiz | generowanie quizu |
-| POST | /quiz/submit | zapis wyniku quizu |
-| GET | /history | historia testów |
+| GET | /allQuestionCount | Zwraca liczbę wszystkich pytań w bazie |
+| GET | /categoryQuestionCount | Zwraca liczbę pytań dla wybranej kategorii (`category`) |
+| GET | /attemptsCount | Zwraca liczbę podejść dla wybranej kategorii (`category`) |
+
+---
+
+### Tematy i pytania
+
+| Metoda | Endpoint | Opis |
+|--------|----------|------|
+| GET | /topics | Zwraca listę tematów i podtematów |
+| GET | /questionsToDiagnostic | Zwraca losowe pytania do diagnostyki na podstawie `subtopicId` i `difficulty` |
+
+---
+
+### Diagnostyka i wyniki
+
+| Metoda | Endpoint | Opis |
+|--------|----------|------|
+| GET | /attempts | Zwraca liczbę prób diagnostycznych dla `subtopicId` i `difficulty` |
+| POST | /userResults | Przetwarza odpowiedzi użytkownika i zwraca wynik quizu |
 
 ## Struktura projektu
 
@@ -74,13 +93,17 @@ src/main/java
 ├── service
 ├── repository
 ├── entity
-├── dto
-├── exception
+|── dto
 
 ## Możliwości rozwoju
 
-- dodanie Spring Security + JWT,
-- testy jednostkowe i integracyjne,
-- dokumentacja API (Swagger/OpenAPI),
-- konteneryzacja aplikacji (Docker),
-- panel administracyjny.
+- dodanie Spring Security + JWT (uwierzytelnianie i autoryzacja użytkowników),
+- testy jednostkowe i integracyjne (JUnit, Mockito),
+- dokumentacja API przy użyciu Swagger / OpenAPI,
+- konteneryzacja aplikacji (Docker + Docker Compose),
+- panel administracyjny do zarządzania pytaniami i kategoriami,
+- rozbudowa systemu statystyk i analityki postępów użytkownika,
+- caching (np. Redis) w celu optymalizacji wydajności,
+- wersjonowanie API (np. /api/v1/...),
+- migracje bazy danych (Flyway lub Liquibase),
+- wdrożenie CI/CD (GitHub Actions).
