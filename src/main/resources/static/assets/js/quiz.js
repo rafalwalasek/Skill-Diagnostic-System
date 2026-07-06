@@ -97,7 +97,8 @@ function saveAnswer(id, answer) {
             const quiz = document.getElementById("quiz-panel");
             quiz.innerHTML = `
                 <div class="result-box">
-                    <h2>${result.subtopicName} ${result.difficulty}</h2>
+                    <h2>${result.subtopicName}</h2>
+                    <h3>${result.difficulty}</h3>
 
                     <p>Score: ${result.score}/${result.totalQuestions}</p>
                     <p>${result.percentage}%</p>
@@ -110,3 +111,8 @@ function saveAnswer(id, answer) {
             `;
         })
     }// END wyslanie odpowiedzi i koniec skilla
+        // powrot do strony głównej
+        // function goHome() {
+        //     window.location.href = "index.html";
+        // }
+        // END powrot do strony głównej
