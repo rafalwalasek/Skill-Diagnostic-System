@@ -32,9 +32,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" data-page="questions">
-                            <span class="icon">❓</span>
-                            <span class="menu-text">Questions</span>
+                        <a href="#" data-page="results">
+                            <span class="icon">📊</span>
+                            <span class="menu-text">Results</span>
                         </a>
                     </li>
                     <li>
@@ -88,7 +88,7 @@
                             <p id="attempts">0</p>
                         </div>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <span>📊</span>
                         <div class="progress-card">
                             <div class="progress-header">
@@ -99,7 +99,7 @@
                                 <div class="progress-bar"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
             </section>
 
@@ -117,20 +117,22 @@
                         </button>
                     </div>
                 </section>
-                <section class="page" id="questions">
+                <section class="page" id="results">
                     <div class="questions-container">
-                        <h2>Questions</h2>
+                        <h2>Results</h2>
 
                         <table class="questions-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Question</th>
+                                    <th>Score</th>
+                                    <th>Percentage</th>
+                                    <th>Date</th>
                                     <th>Subtopic</th>
                                     <th>Difficulty</th>
                                 </tr>
                             </thead>
-                            <tbody id="questionsBody">
+                            <tbody id="resultsBody">
                                 <!-- JavaScript -->
                             </tbody>
                         </table>
@@ -184,5 +186,6 @@
     <script src="assets/js/sectionSwitch.js"></script>
     <script src="assets/js/dashboardData.js"></script>
     <script src="assets/js/quiz.js"></script>
+    <script src="assets/js/resultsHistory.js"></script>
 </body>
 </html>

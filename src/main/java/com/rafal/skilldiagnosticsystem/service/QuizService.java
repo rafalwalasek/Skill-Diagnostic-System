@@ -9,6 +9,7 @@ import com.rafal.skilldiagnosticsystem.repository.SkillProgressRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,6 +27,20 @@ public class QuizService {
         this.skillProgressRepository = skillProgressRepository;
     }
 
+    public List<QuizResultDTO> getResultsHistory() {
+        return quizAttemptRepository.findAll()
+                .stream()
+                .map(attempt -> new QuizResultDTO(
+                        attempt.getId(),
+                        attempt.getScore(),
+                        attempt.getTotalQuestions(),
+                        attempt.getPercentage(),
+                        attempt.getCompletedAt(),
+                        attempt.getDifficultyLevel(),
+                        attempt.getSubtopic().getSubtopicTitle()
+                ))
+                .toList();
+    }
     public QuizResultDTO submitQuiz(QuizSubmissionRequest quizSubmissionRequest) {
         Map<Long, String> userAnswerMap  = quizSubmissionRequest.getUserAnswerMap();
 
@@ -57,9 +72,9 @@ public class QuizService {
         result.setScore(score);
         result.setTotalQuestions(totalQuestions);
         result.setPercentage(percentage(score, totalQuestions));
-        result.setDate(today.toString());
+        result.setDate(today);
         result.setSubtopicName(firstQuestion.getSubtopic().getSubtopicTitle());
-        result.setDifficulty(firstQuestion.getDifficultyLevel().name());
+        result.setDifficulty(firstQuestion.getDifficultyLevel());
 
         return result;
     }

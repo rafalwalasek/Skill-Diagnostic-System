@@ -14,12 +14,22 @@
 -- (1, 'I/O (Input/Output)'),
 -- (1, 'Data i Time API');
 
--- INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
+INSERT INTO question(subtopic_id, content, answerA, answerB, answerC, answerD, correct_answer, difficulty_level) VALUES
 -- ('', '', '', '', '', '', '', '');
 
 -- === OOP -> HARD ===
 -- === OOP -> MEDIUM ===
 -- === OOP -> EASY ===
+(2, 'Czym jest klasa w Javie?', 'Szablonem do tworzenia obiektów', 'Gotowym obiektem', 'Metodą programu', 'Typem pętli', 'A', 'EASY'),
+(2, 'Czym jest obiekt?', 'Pakietem', 'Metodą klasy', 'Instancją klasy', 'Interfejsem', 'C', 'EASY'),
+(2, 'Które słowo kluczowe służy do utworzenia obiektu?', 'extends', 'implements', 'class', 'new', 'D', 'EASY'),
+(2, 'Na czym polega enkapsulacja?', 'Dziedziczeniu metod', 'Ukrywaniu danych i udostępnianiu do nich kontrolowanego dostępu', 'Tworzeniu wielu klas', 'Nadpisywaniu metod', 'B', 'EASY'),
+(2, 'Które słowo kluczowe służy do dziedziczenia po klasie?', 'extends', 'implements', 'super', 'instanceof', 'A', 'EASY'),
+(2, 'Co oznacza polimorfizm?', 'Tworzenie wielu klas', 'Ukrywanie pól klasy', 'Tworzenie konstruktorów', 'Możliwość używania jednego interfejsu dla wielu implementacji', 'D', 'EASY'),
+(2, 'Czy klasa abstrakcyjna może być instancjonowana?', 'Nie', 'Tak', 'Tylko jeśli ma konstruktor', 'Tylko w klasie potomnej', 'A', 'EASY'),
+(2, 'Które słowo kluczowe służy do implementacji interfejsu?', 'extends', 'interface', 'implements', 'abstract', 'C', 'EASY'),
+(2, 'Czy interfejs może zawierać metody?', 'Tak', 'Nie', 'Tylko prywatne', 'Tylko statyczne', 'A', 'EASY'),
+(2, 'Co oznacza litera S w zasadach SOLID?', 'Secure Responsibility', 'Simple Responsibility', 'Single Responsibility Principle', 'Static Responsibility', 'C', 'EASY');
 
 -- === JAVA podstawy -> HARD ===
 -- (1, 'Co zostanie wypisane: int x = 1; x = x++ + ++x + x++; System.out.println(x);', '4', '5', '6', '7', 'B', 'HARD'),

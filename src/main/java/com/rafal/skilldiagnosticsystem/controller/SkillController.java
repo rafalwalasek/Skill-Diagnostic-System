@@ -28,6 +28,18 @@ public class SkillController {
         this.skillProgressService = skillProgressService;
     }
 
+    // wyswietlenie tematow i podtematow z bazy
+    @GetMapping("/topics")
+    public List<TopicDTO> allTitleTopic() {
+        return topicService.getAllTopicsAsDTO();
+    }
+    // zliczanie pytan wszystkich
+    @GetMapping("/questionCount")
+    public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {
+        return questionService.questionCount(subtopicId, diff);
+    }
+
+
     // wszystkie pytania w bazie
     @GetMapping("/allQuestionCount")
     public Long allQuestion() {
@@ -44,11 +56,7 @@ public class SkillController {
         return quizAttemptService.attempts(category);
     }
 //===================================================================
-    // wyswietlenie tematow i podtematow z bazy
-    @GetMapping("/topics")
-    public List<TopicDTO> allTitleTopic() {
-        return topicService.getAllTopicsAsDTO();
-    }
+
     // wyswietlenie konkretnych pytan do diagnostyki
     @GetMapping("/questionsToDiagnostic")
     public List<QuestionResponseDto> randomQuestions(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
@@ -67,11 +75,7 @@ public class SkillController {
         return quizService.submitQuiz(quizSubmissionRequest);
     }
 
-    // zliczanie pytan
-    @GetMapping("/questionCount")
-    public Long questionCount(@RequestParam Long subtopicId, @RequestParam DifficultyLevel diff) {
-        return questionService.questionCount(subtopicId, diff);
-    }
+
     // zwiekszanie pola mastery i sledzenie postepu
     @GetMapping("/progress")
     public SkillProgressDTO getProgress(@RequestParam Long subtopicId, @RequestParam DifficultyLevel difficulty) {
@@ -79,6 +83,12 @@ public class SkillController {
     }
 
 
+
+
+    @GetMapping("/resultsHistory")
+    public List<QuizResultDTO> resultsHistory() {
+        return quizService.getResultsHistory();
+    }
 
 //    @GetMapping("/results")
 //    public List<Double> readFromFile() {

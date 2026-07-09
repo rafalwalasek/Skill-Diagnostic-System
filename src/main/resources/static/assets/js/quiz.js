@@ -104,15 +104,10 @@ function saveAnswer(id, answer) {
                     <p>${result.percentage}%</p>
                     <p>Date: ${result.date}</p>
 
-                    <button onclick="goHome()">
+                    <button onclick="location.reload()">
                         Zakończ
                     </button>
                 </div>
             `;
         })
     }// END wyslanie odpowiedzi i koniec skilla
-        // powrot do strony głównej
-        // function goHome() {
-        //     window.location.href = "index.html";
-        // }
-        // END powrot do strony głównej
