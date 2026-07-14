@@ -1,6 +1,7 @@
 package com.rafal.skilldiagnosticsystem.service;
 
 import com.rafal.skilldiagnosticsystem.dto.QuestionResponseDto;
+import com.rafal.skilldiagnosticsystem.mapper.QuestionMapper;
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.model.Question;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
@@ -14,51 +15,52 @@ import static java.lang.Math.min;
 
 @Service
 public class QuestionService {
-    private final QuestionRepository questionRepository;
+    private static final int EASY_LIMIT = 3;
+    private static final int MEDIUM_LIMIT = 5;
+    private static final int HARD_LIMIT = 10;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    private final QuestionRepository questionRepository;
+    private final QuestionMapper questionMapper;
+
+    public QuestionService(QuestionRepository questionRepository,
+                           QuestionMapper questionMapper) {
         this.questionRepository = questionRepository;
+        this.questionMapper = questionMapper;
     }
 
-    public Long allQuestions() {
+    public long getAllQuestionCount() {
         return questionRepository.count();
     }
-    public Long categoryQuestions(String category) {
+    public long getCategoryQuestionCount(String category) {
         return questionRepository.countBySubtopic_Topic_TopicTitle(category);
     }
-    public Long questionCount(Long subtopicId, DifficultyLevel diff) {
-        return questionRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, diff);
+    public long getQuestionCount(long subtopicId,
+                                 DifficultyLevel difficulty) {
+        return questionRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, difficulty);
     }
-    public List<QuestionResponseDto> getRandomQuestions(Long subtopicId, DifficultyLevel difficulty) {
+    public List<QuestionResponseDto> getQuestions(long subtopicId,
+                                                  DifficultyLevel difficulty) {
         List<Question> questions = questionRepository.findBySubtopicIdAndDifficultyLevel(subtopicId, difficulty);
         Collections.shuffle(questions);
 
-        int limit;
-        if (difficulty == DifficultyLevel.EASY) {
-            limit = 3;
-        } else if (difficulty == DifficultyLevel.MEDIUM) {
-            limit = 5;
-        } else {
-            limit = 10;
-        }
+        int limit = min(getQuestionsLimit(difficulty), questions.size());
 
-        return mapQuestionsToDto(questions.subList(0, min(limit, questions.size())));
+        return mapQuestionsToDto(questions.subList(0, limit));
+    }
+    private int getQuestionsLimit(DifficultyLevel difficulty) {
+        return switch (difficulty) {
+            case EASY -> EASY_LIMIT;
+            case MEDIUM -> MEDIUM_LIMIT;
+            case HARD -> HARD_LIMIT;
+        };
     }
     private List<QuestionResponseDto> mapQuestionsToDto(List<Question> questions) {
-        List<QuestionResponseDto> questionResponseDtoList = new ArrayList<>();
+        List<QuestionResponseDto> dtos = new ArrayList<>();
 
         for (Question question : questions) {
-            QuestionResponseDto questionResponseDto = new QuestionResponseDto();
-            questionResponseDto.setId(question.getId());
-            questionResponseDto.setContent(question.getContent());
-            questionResponseDto.setAnswerA(question.getAnswerA());
-            questionResponseDto.setAnswerB(question.getAnswerB());
-            questionResponseDto.setAnswerC(question.getAnswerC());
-            questionResponseDto.setAnswerD(question.getAnswerD());
-
-            questionResponseDtoList.add(questionResponseDto);
+            dtos.add(questionMapper.toDto(question));
         }
 
-        return questionResponseDtoList;
+        return dtos;
     }
 }

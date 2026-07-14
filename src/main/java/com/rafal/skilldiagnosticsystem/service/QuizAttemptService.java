@@ -2,18 +2,20 @@ package com.rafal.skilldiagnosticsystem.service;
 
 import com.rafal.skilldiagnosticsystem.model.DifficultyLevel;
 import com.rafal.skilldiagnosticsystem.repository.QuizAttemptRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class QuizAttemptService {
     private final QuizAttemptRepository quizAttemptRepository;
 
-    public long getAttempts(Long subtopicId, DifficultyLevel difficultyLevel) {
-        return quizAttemptRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, difficultyLevel);
+    public QuizAttemptService(QuizAttemptRepository quizAttemptRepository) {
+        this.quizAttemptRepository = quizAttemptRepository;
     }
-    public long attempts(String category) {
+
+    public long getAttempts(long subtopicId, DifficultyLevel difficulty) {
+        return quizAttemptRepository.countBySubtopicIdAndDifficultyLevel(subtopicId, difficulty);
+    }
+    public long getCategoryAttempts(String category) {
         return quizAttemptRepository.countBySubtopic_Topic_TopicTitle(category);
     }
 }

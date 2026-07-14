@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let questions = [];
 function openQuiz(subtopicId, difficulty) {
-    fetch(`/quiz/questionsToDiagnostic?subtopicId=${subtopicId}&difficulty=${difficulty}`)
+    fetch(`/quiz/questions?subtopicId=${subtopicId}&difficulty=${difficulty}`)
     .then(res => {
         return res.json();
     })
@@ -85,7 +85,7 @@ function saveAnswer(id, answer) {
 }// END zapisanie odpowiedzi
     // wyslanie odpowiedzi i koniec skilla
     function submitQuiz() {
-        fetch(`/quiz/userResults`, {
+        fetch(`/quiz/submit`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

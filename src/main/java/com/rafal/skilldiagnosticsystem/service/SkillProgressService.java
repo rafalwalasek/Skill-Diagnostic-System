@@ -14,7 +14,7 @@ public class SkillProgressService {
         this.skillProgressRepository = skillProgressRepository;
     }
 
-    public SkillProgressDTO getProgress(Long subtopicId, DifficultyLevel difficulty) {
+    public SkillProgressDTO getProgress(long subtopicId, DifficultyLevel difficulty) {
         SkillProgress progress =
                 skillProgressRepository
                         .findBySubtopicIdAndDifficultyLevel(subtopicId, difficulty)

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch(`/quiz/resultsHistory`)
+    fetch(`/quiz/history`)
     .then(response => response.json())
     .then(data => {
         console.log(data);
@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${result.date}</td>
                 <td>${result.subtopicName}</td>
                 <td>${result.difficulty}</td>
-                
-                
             `;
 
             resultsBody.appendChild(row);

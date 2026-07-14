@@ -1,8 +1,7 @@
 package com.rafal.skilldiagnosticsystem.service;
 
-import com.rafal.skilldiagnosticsystem.dto.SubtopicDTO;
 import com.rafal.skilldiagnosticsystem.dto.TopicDTO;
-import com.rafal.skilldiagnosticsystem.model.Subtopic;
+import com.rafal.skilldiagnosticsystem.mapper.TopicMapper;
 import com.rafal.skilldiagnosticsystem.model.Topic;
 import com.rafal.skilldiagnosticsystem.repository.TopicRepository;
 import org.springframework.stereotype.Service;
@@ -13,33 +12,22 @@ import java.util.List;
 @Service
 public class TopicService {
     private final TopicRepository topicRepository;
+    private final TopicMapper topicMapper;
 
-    public TopicService(TopicRepository topicRepository) {
+    public TopicService(TopicRepository topicRepository,
+                        TopicMapper topicMapper) {
         this.topicRepository = topicRepository;
+        this.topicMapper = topicMapper;
     }
 
-    public List<TopicDTO> getAllTopicsAsDTO() {
+    public List<TopicDTO> getAllTopics() {
         List<Topic> topics = topicRepository.findAll();
 
-        List<TopicDTO> topicDTOS = new ArrayList<>();
+        List<TopicDTO> topicDtos = new ArrayList<>();
         for (Topic topic : topics) {
-            TopicDTO dto = new TopicDTO();
-            dto.setId(topic.getId());
-            dto.setTopicTitle(topic.getTopicTitle());
-
-            List<SubtopicDTO> subtopicDTOS = new ArrayList<>();
-            for (Subtopic subtopic : topic.getSubtopics()) {
-                SubtopicDTO subDto = new SubtopicDTO();
-                subDto.setId(subtopic.getId());
-                subDto.setSubtopicTitle(subtopic.getSubtopicTitle());
-
-                subtopicDTOS.add(subDto);
-            }
-
-            dto.setSubtopicsDTOS(subtopicDTOS);
-            topicDTOS.add(dto);
+            topicDtos.add(topicMapper.toDto(topic));
         }
 
-        return topicDTOS;
+        return topicDtos;
     }
 }
