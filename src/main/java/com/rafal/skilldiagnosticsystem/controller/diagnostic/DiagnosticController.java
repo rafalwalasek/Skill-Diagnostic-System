@@ -33,12 +33,12 @@ public class DiagnosticController {
     }
 
     @GetMapping("/history")
-    public List<QuizResultDTO> getResultsHistory() {
+    public List<ResultDTO> getResultsHistory() {
         return quizService.getResultsHistory();
     }
 
     @PostMapping("/submit")
-    public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionRequest request) {
+    public ResultDTO submitQuiz(@RequestBody QuizSubmissionRequest request) {
         return quizService.submitQuiz(request);
     }
 }

@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuizResultDTO {
-    private Long id;
+public class ResultDTO {
+    private long id;
     private int score;
     private int totalQuestions;
     private int percentage;

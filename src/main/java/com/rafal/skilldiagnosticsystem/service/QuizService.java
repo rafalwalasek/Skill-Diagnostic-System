@@ -1,103 +1,111 @@
 package com.rafal.skilldiagnosticsystem.service;
 
-import com.rafal.skilldiagnosticsystem.dto.QuizResultDTO;
+import com.rafal.skilldiagnosticsystem.dto.ResultDTO;
 import com.rafal.skilldiagnosticsystem.dto.QuizSubmissionRequest;
+import com.rafal.skilldiagnosticsystem.mapper.ResultMapper;
 import com.rafal.skilldiagnosticsystem.model.*;
 import com.rafal.skilldiagnosticsystem.repository.QuestionRepository;
 import com.rafal.skilldiagnosticsystem.repository.QuizAttemptRepository;
-import com.rafal.skilldiagnosticsystem.repository.SkillProgressRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class QuizService {
     private final QuestionRepository questionRepository;
     private final QuizAttemptRepository quizAttemptRepository;
-    private final SkillProgressRepository skillProgressRepository;
+    private final SkillProgressService skillProgressService;
+    private final ResultMapper resultMapper;
 
     public QuizService(QuestionRepository questionRepository,
                        QuizAttemptRepository quizAttemptRepository,
-                       SkillProgressRepository skillProgressRepository) {
+                       SkillProgressService skillProgressService,
+                       ResultMapper resultMapper) {
         this.questionRepository = questionRepository;
         this.quizAttemptRepository = quizAttemptRepository;
-        this.skillProgressRepository = skillProgressRepository;
+        this.skillProgressService = skillProgressService;
+        this.resultMapper = resultMapper;
     }
 
-    public List<QuizResultDTO> getResultsHistory() {
-        return quizAttemptRepository.findAll()
-                .stream()
-                .map(attempt -> new QuizResultDTO(
-                        attempt.getId(),
-                        attempt.getScore(),
-                        attempt.getTotalQuestions(),
-                        attempt.getPercentage(),
-                        attempt.getCompletedAt(),
-                        attempt.getDifficultyLevel(),
-                        attempt.getSubtopic().getSubtopicTitle()
-                ))
-                .toList();
+    public List<ResultDTO> getResultsHistory() {
+        List<QuizAttempt> attempts = quizAttemptRepository.findAll();
+        List<ResultDTO> results = new ArrayList<>();
+
+        for (QuizAttempt attempt : attempts) {
+            results.add(resultMapper.toDto(attempt));
+        }
+
+        return results;
     }
-    public QuizResultDTO submitQuiz(QuizSubmissionRequest quizSubmissionRequest) {
+    public ResultDTO submitQuiz(QuizSubmissionRequest quizSubmissionRequest) {
         Map<Long, String> userAnswerMap  = quizSubmissionRequest.getUserAnswerMap();
 
-        Question firstQuestion = null;
-        LocalDate today = LocalDate.now();
+        Question quizQuestion = null;
+        LocalDate completedAt = LocalDate.now();
 
         int score = 0;
         int totalQuestions = userAnswerMap.size();
         for (Long questionId : userAnswerMap.keySet()) {
             String userAnswer = userAnswerMap.get(questionId);
-            Optional<Question> questId = questionRepository.findById(questionId);
-            Question question = questId.orElseThrow();
+            Question question = questionRepository
+                    .findById(questionId)
+                    .orElseThrow();
 
-            if (firstQuestion == null) {
-                firstQuestion = question;
+            if (quizQuestion == null) {
+                quizQuestion = question;
             }
 
             if (userAnswer.equals(question.getCorrectAnswer())) {
                 score++;
             }
         }
-        if (firstQuestion == null) {
+        if (quizQuestion == null) {
             throw new IllegalStateException("No questions found");
         }
 
-        saveQuizAttempt(score, totalQuestions, today, firstQuestion);
+        saveQuizAttempt(score, totalQuestions, completedAt, quizQuestion);
 
-        QuizResultDTO result = new QuizResultDTO();
-        result.setScore(score);
-        result.setTotalQuestions(totalQuestions);
-        result.setPercentage(percentage(score, totalQuestions));
-        result.setDate(today);
-        result.setSubtopicName(firstQuestion.getSubtopic().getSubtopicTitle());
-        result.setDifficulty(firstQuestion.getDifficultyLevel());
-
-        return result;
+        return resultMapper.toQuizResult(
+                score,
+                totalQuestions,
+                calculatePercentage(score, totalQuestions),
+                completedAt,
+                quizQuestion
+        );
     }
 
-    private int percentage(int score, int totalQuestions) {
+    private int calculatePercentage(int score, int totalQuestions) {
         if (totalQuestions == 0) {
             return 0;
         }
         return (score * 100) / totalQuestions;
     }
-    private void saveQuizAttempt(int score, int totalQuestions, LocalDate today, Question question) {
+    private void saveQuizAttempt(int score,
+                                 int totalQuestions,
+                                 LocalDate completedAt,
+                                 Question quizQuestion) {
+        int percentage = calculatePercentage(score, totalQuestions);
+
         QuizAttempt attempt = new QuizAttempt();
         attempt.setScore(score);
         attempt.setTotalQuestions(totalQuestions);
-        attempt.setPercentage(percentage(score, totalQuestions));
-        attempt.setCompletedAt(today);
-        attempt.setDifficultyLevel(question.getDifficultyLevel());
-        attempt.setSubtopic(question.getSubtopic());
+        attempt.setPercentage(percentage);
+        attempt.setCompletedAt(completedAt);
+        attempt.setDifficultyLevel(quizQuestion.getDifficultyLevel());
+        attempt.setSubtopic(quizQuestion.getSubtopic());
 
         quizAttemptRepository.save(attempt);
 
-        int masteryChange = calculateMasteryChange(question.getDifficultyLevel(), score);
-        updateSkillProgress(question.getSubtopic(), question.getDifficultyLevel(), masteryChange);
+        int masteryChange = calculateMasteryChange(quizQuestion.getDifficultyLevel(), score);
+
+        skillProgressService.updateProgress(
+                quizQuestion.getSubtopic(),
+                quizQuestion.getDifficultyLevel(),
+                masteryChange
+        );
     }
     private int calculateMasteryChange(DifficultyLevel difficulty, int score) {
         return switch (difficulty) {
@@ -132,23 +140,5 @@ public class QuizService {
                 default -> 0;
             };
         };
-    }
-    private void updateSkillProgress(Subtopic subtopic, DifficultyLevel difficultyLevel, int change) {
-        SkillProgress progress = skillProgressRepository.findBySubtopicIdAndDifficultyLevel(subtopic.getId(), difficultyLevel)
-                .orElseGet(() -> {
-                    SkillProgress newProgress = new SkillProgress();
-                    newProgress.setSubtopic(subtopic);
-                    newProgress.setDifficultyLevel(difficultyLevel);
-                    newProgress.setMastery(0);
-
-                    return newProgress;
-                });
-
-        int newMastery = progress.getMastery() + change;
-        newMastery = Math.max(0, Math.min(100, newMastery));
-
-        progress.setMastery(newMastery);
-
-        skillProgressRepository.save(progress);
     }
 }
